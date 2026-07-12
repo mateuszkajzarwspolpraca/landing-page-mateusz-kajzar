@@ -7,8 +7,8 @@ import { useState } from "react";
 const navLinks = [
   { label: "O mnie", href: "#o-mnie" },
   { label: "Oferta", href: "#oferta" },
-  { label: "Opinie", href: "#opinie" },
   { label: "FAQ", href: "#faq" },
+  { label: "Opinie", href: "#opinie" },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
@@ -78,7 +78,7 @@ export function SiteNavbar() {
           />
 
           <div>
-            <p className="text-sm font-black uppercase leading-none tracking-wide sm:text-lg">
+            <p className="text-sm font-black text-white uppercase leading-none tracking-wide sm:text-lg">
               Mateusz Kajzar
             </p>
             <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-red-500 sm:text-xs">

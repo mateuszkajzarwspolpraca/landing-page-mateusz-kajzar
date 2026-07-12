@@ -4,10 +4,14 @@ import { PageScroller } from "@/components/PageScroller";
 import { SiteNavbar } from "@/components/navbar";
 import { Oferta } from "@/components/Oferta";
 import { FAQCarousel } from "@/components/FAQCarousel";
+import { Kontakt } from "@/components/Kontakt";
+import { Opinie } from "@/components/Opinie";
+import { PageLoader } from "@/components/PageLoader";
 
 export default function Home() {
   return (
     <>
+      <PageLoader />
       <SiteNavbar />
 
       <PageScroller>
@@ -15,6 +19,8 @@ export default function Home() {
         <Omnie />
         <Oferta />
         <FAQCarousel />
+        <Opinie />
+        <Kontakt />
       </PageScroller>
     </>
   );

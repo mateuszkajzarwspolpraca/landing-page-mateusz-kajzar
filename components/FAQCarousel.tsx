@@ -14,6 +14,7 @@ import {
   Video,
 } from "lucide-react";
 import { useState } from "react";
+import { Reveal } from "./Reveal";
 
 const faqItems = [
   {
@@ -114,201 +115,208 @@ export function FAQCarousel() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_80%,rgba(255,255,255,0.05),transparent_18%)]" />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 pb-8 pt-28 sm:px-8 lg:h-screen lg:px-12 lg:pb-6 lg:pt-[88px]">
-        <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-red-500">
-              FAQ
-            </p>
-            <div className="mt-3 h-0.5 w-16 bg-red-600" />
+        <Reveal>
+          <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.22em] text-red-500">
+                FAQ
+              </p>
+              <div className="mt-3 h-0.5 w-16 bg-red-600" />
 
-            <h2 className="mt-4 max-w-4xl text-4xl font-black leading-none sm:text-5xl lg:text-[56px]">
-              Masz pytania?{" "}
-              <span className="block text-red-500 sm:inline">
-                Mam odpowiedzi.
-              </span>
-            </h2>
+              <h2 className="mt-4 max-w-4xl text-4xl font-black leading-none sm:text-5xl lg:text-[56px]">
+                Masz pytania?{" "}
+                <span className="block text-red-500 sm:inline">
+                  Mam odpowiedzi.
+                </span>
+              </h2>
 
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-neutral-400 sm:text-base">
-              Poniżej znajdziesz odpowiedzi na najczęściej zadawane pytania.
-              Jeśli czegoś tu nie ma - napisz do mnie.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <p className="min-w-20 text-sm font-black text-white">
-              {formatNumber(activeIndex + 1)}{" "}
-              <span className="text-neutral-500">
-                / {formatNumber(faqItems.length)}
-              </span>
-            </p>
-
-            <div className="flex items-center gap-1.5">
-              {faqItems.map((item, index) => (
-                <button
-                  key={item.category}
-                  type="button"
-                  aria-label={`Przejdź do pytania ${index + 1}`}
-                  onClick={() => setActiveIndex(index)}
-                  className={`h-1.5 rounded-full transition-all ${
-                    activeIndex === index
-                      ? "w-8 bg-red-600"
-                      : "w-3 bg-white/18 hover:bg-white/35"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6 grid items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
-          <button
-            type="button"
-            aria-label="Poprzednie pytanie"
-            onClick={goToPrevious}
-            className="hidden h-12 w-12 items-center justify-center rounded-md border border-red-600 bg-black/20 text-white transition hover:bg-red-600 lg:flex"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </button>
-
-          <article className="relative min-h-[260px] overflow-hidden rounded-lg border border-white/10 bg-[#111111]/80 p-5 backdrop-blur transition hover:border-red-500/40 sm:p-7 lg:min-h-[300px] lg:p-8">
-            <div className="absolute right-0 top-0 hidden h-full w-[34%] bg-[radial-gradient(circle_at_50%_35%,rgba(239,35,42,0.14),transparent_32%)] lg:block" />
-            <div className="absolute right-0 top-0 hidden h-full w-[34%] border-l border-white/10 bg-gradient-to-l from-black/60 to-transparent lg:block" />
-
-            <div className="relative z-10 max-w-3xl">
-              <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-red-500/50 bg-red-600/10 text-red-500">
-                  <ActiveIcon className="h-8 w-8" />
-                </div>
-
-                <div>
-                  <p className="inline-flex rounded-md border border-red-500/35 bg-red-600/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-red-500">
-                    {activeItem.category}
-                  </p>
-                  <p className="mt-2 text-sm text-neutral-500">
-                    Pytanie {formatNumber(activeIndex + 1)}
-                  </p>
-                </div>
-              </div>
-
-              <h3 className="mt-7 text-3xl font-black leading-tight sm:text-4xl lg:text-[42px]">
-                {activeItem.question}
-              </h3>
-
-              <p className="mt-5 max-w-2xl text-base leading-8 text-neutral-400 lg:text-lg">
-                {activeItem.answer}
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-neutral-400 sm:text-base">
+                Poniżej znajdziesz odpowiedzi na najczęściej zadawane pytania.
+                Jeśli czegoś tu nie ma - napisz do mnie.
               </p>
             </div>
-          </article>
 
-          <button
-            type="button"
-            aria-label="Następne pytanie"
-            onClick={goToNext}
-            className="hidden h-12 w-12 items-center justify-center rounded-md border border-red-600 bg-black/20 text-white transition hover:bg-red-600 lg:flex"
-          >
-            <ArrowRight className="h-5 w-5" />
-          </button>
+            <div className="flex items-center gap-4">
+              <p className="min-w-20 text-sm font-black text-white">
+                {formatNumber(activeIndex + 1)}{" "}
+                <span className="text-neutral-500">
+                  / {formatNumber(faqItems.length)}
+                </span>
+              </p>
 
-          <div className="flex gap-3 lg:hidden">
+              <div className="flex items-center gap-1.5">
+                {faqItems.map((item, index) => (
+                  <button
+                    key={item.category}
+                    type="button"
+                    aria-label={`Przejdź do pytania ${index + 1}`}
+                    onClick={() => setActiveIndex(index)}
+                    className={`h-1.5 rounded-full transition-all ${
+                      activeIndex === index
+                        ? "w-8 bg-red-600"
+                        : "w-3 bg-white/18 hover:bg-white/35"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.12}>
+          <div className="mt-6 grid items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
             <button
               type="button"
               aria-label="Poprzednie pytanie"
               onClick={goToPrevious}
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-red-600 bg-black/20 px-5 py-3 text-sm font-black transition hover:bg-red-600"
+              className="hidden h-12 w-12 items-center justify-center rounded-md border border-red-600 bg-black/20 text-white transition duration-300 hover:bg-red-600 lg:flex"
             >
-              <ArrowLeft className="h-4 w-4" />
-              Poprzednie
+              <ArrowLeft className="h-5 w-5" />
             </button>
+
+            <article className="relative min-h-[260px] overflow-hidden rounded-lg border border-white/10 bg-[#111111]/80 p-5 backdrop-blur transition duration-300 hover:border-red-500/40 sm:p-7 lg:min-h-[300px] lg:p-8">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_18%,rgba(239,35,42,0.1),transparent_28%)]" />
+
+              <div className="relative z-10">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-red-500/50 bg-red-600/10 text-red-500">
+                    <ActiveIcon className="h-8 w-8" />
+                  </div>
+
+                  <div>
+                    <p className="inline-flex rounded-md border border-red-500/35 bg-red-600/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-red-500">
+                      {activeItem.category}
+                    </p>
+                    <p className="mt-2 text-sm text-neutral-500">
+                      Pytanie {formatNumber(activeIndex + 1)}
+                    </p>
+                  </div>
+                </div>
+
+                <h3 className="mt-7 max-w-5xl text-3xl font-black leading-tight sm:text-4xl lg:text-[42px]">
+                  {activeItem.question}
+                </h3>
+
+                <p className="mt-5 max-w-5xl text-base leading-8 text-neutral-400 lg:text-lg">
+                  {activeItem.answer}
+                </p>
+              </div>
+            </article>
 
             <button
               type="button"
               aria-label="Następne pytanie"
               onClick={goToNext}
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-red-600 bg-black/20 px-5 py-3 text-sm font-black transition hover:bg-red-600"
+              className="hidden h-12 w-12 items-center justify-center rounded-md border border-red-600 bg-black/20 text-white transition duration-300 hover:bg-red-600 lg:flex"
             >
-              Następne
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-5 w-5" />
             </button>
+
+            <div className="flex gap-3 lg:hidden">
+              <button
+                type="button"
+                aria-label="Poprzednie pytanie"
+                onClick={goToPrevious}
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-red-600 bg-black/20 px-5 py-3 text-sm font-black transition duration-300 hover:bg-red-600"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Poprzednie
+              </button>
+
+              <button
+                type="button"
+                aria-label="Następne pytanie"
+                onClick={goToNext}
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-red-600 bg-black/20 px-5 py-3 text-sm font-black transition duration-300 hover:bg-red-600"
+              >
+                Następne
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="mt-5 overflow-x-auto pb-2">
-          <div className="grid min-w-[980px] grid-cols-8 gap-3 lg:min-w-0">
-            {faqItems.map((item, index) => {
-              const ItemIcon = item.icon;
-              const isActive = activeIndex === index;
+        <Reveal delay={0.2}>
+          <div className="mt-5 overflow-x-auto pb-2">
+            <div className="grid min-w-[980px] grid-cols-8 gap-3 lg:min-w-0">
+              {faqItems.map((item, index) => {
+                const ItemIcon = item.icon;
+                const isActive = activeIndex === index;
 
-              return (
-                <button
-                  key={item.question}
-                  type="button"
-                  onClick={() => setActiveIndex(index)}
-                  className={`group rounded-lg border p-3 text-left transition hover:border-red-500/40 ${
-                    isActive
-                      ? "border-red-500/70 bg-red-600/10"
-                      : "border-white/10 bg-[#111111]/65"
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span
-                      className={`text-xs font-black ${
+                return (
+                  <button
+                    key={item.question}
+                    type="button"
+                    onClick={() => setActiveIndex(index)}
+                    className={`group rounded-lg border p-3 text-left transition duration-300 hover:-translate-y-1 hover:border-red-500/40 ${
+                      isActive
+                        ? "border-red-500/70 bg-red-600/10"
+                        : "border-white/10 bg-[#111111]/65"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span
+                        className={`text-xs font-black ${
+                          isActive ? "text-red-500" : "text-neutral-500"
+                        }`}
+                      >
+                        {formatNumber(index + 1)}
+                      </span>
+                      <ItemIcon
+                        className={`h-4 w-4 transition-colors ${
+                          isActive
+                            ? "text-red-500"
+                            : "text-neutral-500 group-hover:text-red-500"
+                        }`}
+                      />
+                    </div>
+
+                    <p
+                      className={`mt-3 text-[11px] font-black uppercase tracking-[0.14em] ${
                         isActive ? "text-red-500" : "text-neutral-500"
                       }`}
                     >
-                      {formatNumber(index + 1)}
-                    </span>
-                    <ItemIcon
-                      className={`h-4 w-4 ${
-                        isActive
-                          ? "text-red-500"
-                          : "text-neutral-500 group-hover:text-red-500"
+                      {item.category}
+                    </p>
+
+                    <p className="mt-2 text-xs font-semibold leading-4 text-white/78">
+                      {item.shortQuestion}
+                    </p>
+
+                    <div
+                      className={`mt-3 h-0.5 w-full ${
+                        isActive ? "bg-red-600" : "bg-white/10"
                       }`}
                     />
-                  </div>
-
-                  <p
-                    className={`mt-3 text-[11px] font-black uppercase tracking-[0.14em] ${
-                      isActive ? "text-red-500" : "text-neutral-500"
-                    }`}
-                  >
-                    {item.category}
-                  </p>
-
-                  <p className="mt-2 text-xs font-semibold leading-4 text-white/78">
-                    {item.shortQuestion}
-                  </p>
-
-                  <div
-                    className={`mt-3 h-0.5 w-full ${
-                      isActive ? "bg-red-600" : "bg-white/10"
-                    }`}
-                  />
-                </button>
-              );
-            })}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="mt-4 grid gap-4 rounded-lg border border-white/10 bg-[#111111]/80 p-4 backdrop-blur lg:grid-cols-[1fr_1.5fr_auto] lg:items-center">
-          <div className="flex items-center gap-4">
-            <CheckCircle2 className="h-8 w-8 text-red-500" />
-            <p className="text-base font-black">Nadal masz pytania?</p>
+        <Reveal delay={0.28}>
+          <div className="mt-4 grid gap-4 rounded-lg border border-white/10 bg-[#111111]/80 p-4 backdrop-blur transition duration-300 hover:border-red-500/35 hover:bg-white/[0.055] lg:grid-cols-[1fr_1.5fr_auto] lg:items-center">
+            <div className="flex items-center gap-4">
+              <CheckCircle2 className="h-8 w-8 text-red-500" />
+              <p className="text-base font-black">Nadal masz pytania?</p>
+            </div>
+
+            <p className="text-sm leading-5 text-neutral-400">
+              Umów darmową konsultację. Przez około 30 minut porozmawiamy o
+              Twoim celu, odpowiem na pytania i wspólnie ustalimy najlepszy plan
+              działania.
+            </p>
+
+            <a
+              href="#kontakt"
+              className="group inline-flex items-center justify-center gap-3 rounded-md border border-red-600 bg-black/20 px-6 py-2.5 text-sm font-black transition duration-300 hover:bg-red-600"
+            >
+              Umów darmową konsultację
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
           </div>
-
-          <p className="text-sm leading-5 text-neutral-400">
-            Umów darmową konsultację. Przez około 30 minut porozmawiamy o
-            Twoim celu, odpowiem na pytania i wspólnie ustalimy najlepszy plan
-            działania.
-          </p>
-
-          <a
-            href="#kontakt"
-            className="inline-flex items-center justify-center gap-3 rounded-md border border-red-600 bg-black/20 px-6 py-2.5 text-sm font-black transition hover:bg-red-600"
-          >
-            Umów darmową konsultację
-            <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

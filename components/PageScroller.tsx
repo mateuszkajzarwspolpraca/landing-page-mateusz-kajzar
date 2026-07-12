@@ -13,7 +13,7 @@ function easeInOutCubic(t: number) {
 function animateScroll(
   container: HTMLElement,
   targetTop: number,
-  duration = 1100
+  duration = 1150
 ) {
   const startTop = container.scrollTop;
   const distance = targetTop - startTop;
@@ -50,6 +50,7 @@ export function PageScroller({ children }: PageScrollerProps) {
     if (isAnimating.current) return;
 
     const currentScroll = container.scrollTop;
+
     const currentIndex = sections.reduce((closestIndex, section, index) => {
       const currentDistance = Math.abs(
         sections[closestIndex].offsetTop - currentScroll
@@ -76,11 +77,33 @@ export function PageScroller({ children }: PageScrollerProps) {
     }, 1200);
   };
 
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const link = (event.target as HTMLElement).closest<HTMLAnchorElement>(
+      'a[href^="#"]'
+    );
+
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+
+    if (!href || href === "#") return;
+
+    const container = event.currentTarget;
+    const target = document.querySelector<HTMLElement>(href);
+
+    if (!target) return;
+
+    event.preventDefault();
+
+    animateScroll(container, target.offsetTop, 1150);
+  };
+
   return (
     <main
       id="page-scroll"
       className="h-screen overflow-y-auto overscroll-contain bg-black text-white"
       onWheel={handleWheel}
+      onClick={handleClick}
     >
       {children}
     </main>
