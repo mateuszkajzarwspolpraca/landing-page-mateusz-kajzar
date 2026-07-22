@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://landing-page-mateusz-kajzar.vercel.app"),
   title:
     "Mateusz Kajzar | Trener Personalny Jaworzno i Trzebinia | Trener Online",
   description:
