@@ -26,7 +26,7 @@ export function Omnie() {
     >
       <div className="absolute inset-x-0 top-0 h-[110vh] lg:inset-y-0 lg:left-0 lg:h-auto lg:w-[42vw]">
         <Image
-          src="/images/omnie/omnie.jpeg"
+          src="/images/omnie/omnie.JPEG"
           alt="Mateusz Kajzar - trener personalny"
           fill
           priority

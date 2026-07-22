@@ -20,7 +20,7 @@ export function PageLoader() {
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black">
       <div className="flex flex-col items-center gap-6">
         <Image
-          src="/images/logo/logo.png"
+          src="/images/logo/logo.PNG"
           alt="Mateusz Kajzar"
           width={96}
           height={96}
