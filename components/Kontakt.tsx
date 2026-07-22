@@ -1,3 +1,6 @@
+"use client";
+
+import { FormEvent, useState } from "react";
 import {
   ArrowRight,
   CalendarDays,
@@ -60,7 +63,60 @@ const infoItems = [
   },
 ];
 
+type SubmitStatus = "idle" | "success" | "error";
+
 export function Kontakt() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      name: String(formData.get("name") || ""),
+      email: String(formData.get("email") || ""),
+      phone: String(formData.get("phone") || ""),
+      cooperation: String(formData.get("cooperation") || ""),
+      goal: String(formData.get("goal") || ""),
+    };
+
+    setIsSubmitting(true);
+    setStatus("idle");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      const dataLayer = (window as Window & {
+    dataLayer?: Record<string, unknown>[];
+      }).dataLayer;
+
+    dataLayer?.push({
+      event: "contact_form_submit",
+      form_name: "kontakt",
+    });
+
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <section
       id="kontakt"
@@ -71,7 +127,7 @@ export function Kontakt() {
       <div className="absolute -left-28 bottom-24 hidden h-96 w-96 rounded-full border border-white/10 bg-[radial-gradient(circle,rgba(255,255,255,0.08),rgba(0,0,0,0)_62%)] lg:block" />
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black to-transparent" />
 
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 pb-6 pt-28 sm:px-8 lg:h-screen lg:px-12 lg:pb-5 lg:pt-[78px]">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 pb-6 pt-28 sm:px-8 lg:h-screen lg:px-12 lg:pb-5 lg:pt-[88px]">
         <div className="grid flex-1 gap-7 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <Reveal>
             <div>
@@ -87,9 +143,8 @@ export function Kontakt() {
 
               <p className="mt-5 max-w-xl text-sm leading-6 text-neutral-400 sm:text-base">
                 Zostaw kontakt i napisz krótko, czego potrzebujesz. Po wysłaniu
-                formularza otrzymasz maila zwrotnego, gdzie dostaniesz wszystkie
-                informacje na temat współpracy oraz umówisz konsultację w
-                kalendarzu.
+                formularza odezwę się mailowo z informacjami o współpracy i
+                linkiem do umówienia konsultacji.
               </p>
 
               <div className="mt-6 h-0.5 w-16 bg-red-600" />
@@ -116,7 +171,7 @@ export function Kontakt() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.12} className="lg:pt-4">
+          <Reveal delay={0.12} className="lg:pt-6">
             <div className="rounded-lg border border-red-500/30 bg-[#111111]/80 p-5 shadow-[0_0_80px_rgba(239,35,42,0.08)] backdrop-blur transition duration-300 hover:border-red-500/45 sm:p-6 lg:p-6">
               <div className="flex items-center gap-4">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-red-500/20 bg-red-600/10 text-red-500">
@@ -131,13 +186,14 @@ export function Kontakt() {
                 </div>
               </div>
 
-              <form className="mt-5 grid gap-4">
+              <form onSubmit={handleSubmit} className="mt-5 grid gap-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="grid gap-2 text-sm font-bold">
                     <span>
                       Imię i nazwisko <span className="text-red-500">*</span>
                     </span>
                     <input
+                      required
                       type="text"
                       name="name"
                       placeholder="Wpisz swoje imię i nazwisko"
@@ -150,6 +206,7 @@ export function Kontakt() {
                       E-mail <span className="text-red-500">*</span>
                     </span>
                     <input
+                      required
                       type="email"
                       name="email"
                       placeholder="Wpisz swój e-mail"
@@ -164,6 +221,7 @@ export function Kontakt() {
                       Numer telefonu <span className="text-red-500">*</span>
                     </span>
                     <input
+                      required
                       type="tel"
                       name="phone"
                       placeholder="Wpisz numer telefonu"
@@ -176,6 +234,7 @@ export function Kontakt() {
                       Forma współpracy <span className="text-red-500">*</span>
                     </span>
                     <select
+                      required
                       name="cooperation"
                       defaultValue=""
                       className="h-12 appearance-none rounded-md border border-white/10 bg-white/[0.035] px-4 text-sm font-normal text-neutral-400 outline-none transition focus:border-red-500/60"
@@ -197,6 +256,7 @@ export function Kontakt() {
                     Twój główny cel <span className="text-red-500">*</span>
                   </span>
                   <select
+                    required
                     name="goal"
                     defaultValue=""
                     className="h-12 appearance-none rounded-md border border-white/10 bg-white/[0.035] px-4 text-sm font-normal text-neutral-400 outline-none transition focus:border-red-500/60"
@@ -218,17 +278,32 @@ export function Kontakt() {
                     <Mail className="h-5 w-5" />
                   </div>
                   <p>
-                    Po wypełnieniu formularza otrzymasz maila zwrotnego, gdzie
-                    dostaniesz wszystkie informacje na temat współpracy oraz
-                    umówisz konsultację w kalendarzu.
+                    Po wysłaniu formularza dostanę Twoje zgłoszenie mailowo i
+                    odezwę się z dalszymi informacjami oraz linkiem do terminu
+                    konsultacji.
                   </p>
                 </div>
 
+                {status === "success" && (
+                  <p className="rounded-md border border-red-500/30 bg-red-600/10 px-4 py-3 text-sm text-white">
+                    Dzięki. Formularz został wysłany. Odezwę się do Ciebie
+                    mailowo.
+                  </p>
+                )}
+
+                {status === "error" && (
+                  <p className="rounded-md border border-red-500/30 bg-red-600/10 px-4 py-3 text-sm text-white">
+                    Coś poszło nie tak. Spróbuj ponownie albo napisz bezpośrednio
+                    na mail.
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="group mt-1 inline-flex h-[52px] items-center justify-center gap-3 rounded-md bg-red-600 px-6 text-base font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-red-500"
+                  disabled={isSubmitting}
+                  className="group mt-1 inline-flex h-[52px] items-center justify-center gap-3 rounded-md bg-red-600 px-6 text-base font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-red-500 disabled:pointer-events-none disabled:opacity-70"
                 >
-                  Przejdź do wyboru terminu
+                  {isSubmitting ? "Wysyłanie..." : "Wyślij formularz"}
                   <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
 
