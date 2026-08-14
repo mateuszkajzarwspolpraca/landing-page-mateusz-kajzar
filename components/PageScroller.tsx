@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 type PageScrollerProps = {
   children: ReactNode;
@@ -35,47 +35,61 @@ function animateScroll(
 }
 
 export function PageScroller({ children }: PageScrollerProps) {
+  const containerRef = useRef<HTMLElement | null>(null);
   const isAnimating = useRef(false);
 
-  const handleWheel = (event: React.WheelEvent<HTMLElement>) => {
-    const container = event.currentTarget;
-    const sections = Array.from(
-      container.querySelectorAll<HTMLElement>("[data-section]")
-    );
+  useEffect(() => {
+    const container = containerRef.current;
 
-    if (sections.length === 0) return;
+    if (!container) return;
 
-    event.preventDefault();
+    const handleWheel = (event: WheelEvent) => {
+      if (event.ctrlKey) return;
 
-    if (isAnimating.current) return;
-
-    const currentScroll = container.scrollTop;
-
-    const currentIndex = sections.reduce((closestIndex, section, index) => {
-      const currentDistance = Math.abs(
-        sections[closestIndex].offsetTop - currentScroll
+      const sections = Array.from(
+        container.querySelectorAll<HTMLElement>("[data-section]")
       );
-      const newDistance = Math.abs(section.offsetTop - currentScroll);
 
-      return newDistance < currentDistance ? index : closestIndex;
-    }, 0);
+      if (sections.length === 0) return;
 
-    const direction = event.deltaY > 0 ? 1 : -1;
-    const nextIndex = Math.min(
-      Math.max(currentIndex + direction, 0),
-      sections.length - 1
-    );
+      event.preventDefault();
 
-    if (nextIndex === currentIndex) return;
+      if (isAnimating.current) return;
 
-    isAnimating.current = true;
+      const currentScroll = container.scrollTop;
 
-    animateScroll(container, sections[nextIndex].offsetTop, 1150);
+      const currentIndex = sections.reduce((closestIndex, section, index) => {
+        const currentDistance = Math.abs(
+          sections[closestIndex].offsetTop - currentScroll
+        );
+        const newDistance = Math.abs(section.offsetTop - currentScroll);
 
-    window.setTimeout(() => {
-      isAnimating.current = false;
-    }, 1200);
-  };
+        return newDistance < currentDistance ? index : closestIndex;
+      }, 0);
+
+      const direction = event.deltaY > 0 ? 1 : -1;
+      const nextIndex = Math.min(
+        Math.max(currentIndex + direction, 0),
+        sections.length - 1
+      );
+
+      if (nextIndex === currentIndex) return;
+
+      isAnimating.current = true;
+
+      animateScroll(container, sections[nextIndex].offsetTop, 1150);
+
+      window.setTimeout(() => {
+        isAnimating.current = false;
+      }, 1200);
+    };
+
+    container.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     const link = (event.target as HTMLElement).closest<HTMLAnchorElement>(
@@ -100,9 +114,9 @@ export function PageScroller({ children }: PageScrollerProps) {
 
   return (
     <main
+      ref={containerRef}
       id="page-scroll"
       className="h-screen overflow-y-auto overscroll-contain bg-black text-white"
-      onWheel={handleWheel}
       onClick={handleClick}
     >
       {children}

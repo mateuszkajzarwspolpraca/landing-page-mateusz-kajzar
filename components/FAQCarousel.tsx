@@ -13,7 +13,7 @@ import {
   Salad,
   Video,
 } from "lucide-react";
-import { useState } from "react";
+import { TouchEvent, useRef, useState } from "react";
 import { Reveal } from "./Reveal";
 
 const faqItems = [
@@ -89,6 +89,8 @@ function formatNumber(value: number) {
 
 export function FAQCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const touchStart = useRef({ x: 0, y: 0 });
+  const touchEnd = useRef({ x: 0, y: 0 });
 
   const activeItem = faqItems[activeIndex];
   const ActiveIcon = activeItem.icon;
@@ -103,6 +105,36 @@ export function FAQCarousel() {
     setActiveIndex((current) =>
       current === faqItems.length - 1 ? 0 : current + 1
     );
+  };
+
+  const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
+    touchStart.current = {
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY,
+    };
+    touchEnd.current = touchStart.current;
+  };
+
+  const handleTouchMove = (event: TouchEvent<HTMLElement>) => {
+    touchEnd.current = {
+      x: event.touches[0].clientX,
+      y: event.touches[0].clientY,
+    };
+  };
+
+  const handleTouchEnd = () => {
+    const distanceX = touchStart.current.x - touchEnd.current.x;
+    const distanceY = touchStart.current.y - touchEnd.current.y;
+
+    if (Math.abs(distanceX) < 55 || Math.abs(distanceX) < Math.abs(distanceY)) {
+      return;
+    }
+
+    if (distanceX > 0) {
+      goToNext();
+    } else {
+      goToPrevious();
+    }
   };
 
   return (
@@ -164,76 +196,61 @@ export function FAQCarousel() {
         </Reveal>
 
         <Reveal delay={0.12}>
-          <div className="mt-6 grid items-center gap-4 lg:grid-cols-[auto_1fr_auto]">
+          <div className="mt-6 flex items-center justify-between gap-3">
             <button
               type="button"
               aria-label="Poprzednie pytanie"
               onClick={goToPrevious}
-              className="hidden h-12 w-12 items-center justify-center rounded-md border border-red-600 bg-black/20 text-white transition duration-300 hover:bg-red-600 lg:flex"
+              className="group inline-flex h-11 items-center justify-center gap-2 rounded-md border border-red-600 bg-black/20 px-4 text-sm font-black text-white transition duration-300 hover:bg-red-600 sm:px-5"
             >
-              <ArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
+              Poprzednie
             </button>
-
-            <article className="relative min-h-[260px] overflow-hidden rounded-lg border border-white/10 bg-[#111111]/80 p-5 backdrop-blur transition duration-300 hover:border-red-500/40 sm:p-7 lg:min-h-[300px] lg:p-8">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_18%,rgba(239,35,42,0.1),transparent_28%)]" />
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-red-500/50 bg-red-600/10 text-red-500">
-                    <ActiveIcon className="h-8 w-8" />
-                  </div>
-
-                  <div>
-                    <p className="inline-flex rounded-md border border-red-500/35 bg-red-600/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-red-500">
-                      {activeItem.category}
-                    </p>
-                    <p className="mt-2 text-sm text-neutral-500">
-                      Pytanie {formatNumber(activeIndex + 1)}
-                    </p>
-                  </div>
-                </div>
-
-                <h3 className="mt-7 max-w-5xl text-3xl font-black leading-tight sm:text-4xl lg:text-[42px]">
-                  {activeItem.question}
-                </h3>
-
-                <p className="mt-5 max-w-5xl text-base leading-8 text-neutral-400 lg:text-lg">
-                  {activeItem.answer}
-                </p>
-              </div>
-            </article>
 
             <button
               type="button"
               aria-label="Następne pytanie"
               onClick={goToNext}
-              className="hidden h-12 w-12 items-center justify-center rounded-md border border-red-600 bg-black/20 text-white transition duration-300 hover:bg-red-600 lg:flex"
+              className="group inline-flex h-11 items-center justify-center gap-2 rounded-md border border-red-600 bg-black/20 px-4 text-sm font-black text-white transition duration-300 hover:bg-red-600 sm:px-5"
             >
-              <ArrowRight className="h-5 w-5" />
+              Następne
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
-
-            <div className="flex gap-3 lg:hidden">
-              <button
-                type="button"
-                aria-label="Poprzednie pytanie"
-                onClick={goToPrevious}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-red-600 bg-black/20 px-5 py-3 text-sm font-black transition duration-300 hover:bg-red-600"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Poprzednie
-              </button>
-
-              <button
-                type="button"
-                aria-label="Następne pytanie"
-                onClick={goToNext}
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-md border border-red-600 bg-black/20 px-5 py-3 text-sm font-black transition duration-300 hover:bg-red-600"
-              >
-                Następne
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </div>
           </div>
+
+          <article
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            className="relative mt-4 min-h-[260px] touch-pan-y overflow-hidden rounded-lg border border-white/10 bg-[#111111]/80 p-5 backdrop-blur transition duration-300 hover:border-red-500/40 sm:p-7 lg:min-h-[300px] lg:p-8"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_18%,rgba(239,35,42,0.1),transparent_28%)]" />
+
+            <div className="relative z-10">
+              <div className="flex items-center gap-4">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-red-500/50 bg-red-600/10 text-red-500">
+                  <ActiveIcon className="h-8 w-8" />
+                </div>
+
+                <div>
+                  <p className="inline-flex rounded-md border border-red-500/35 bg-red-600/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-red-500">
+                    {activeItem.category}
+                  </p>
+                  <p className="mt-2 text-sm text-neutral-500">
+                    Pytanie {formatNumber(activeIndex + 1)}
+                  </p>
+                </div>
+              </div>
+
+              <h3 className="mt-7 max-w-5xl text-3xl font-black leading-tight sm:text-4xl lg:text-[42px]">
+                {activeItem.question}
+              </h3>
+
+              <p className="mt-5 max-w-5xl text-base leading-8 text-neutral-400 lg:text-lg">
+                {activeItem.answer}
+              </p>
+            </div>
+          </article>
         </Reveal>
 
         <Reveal delay={0.2}>

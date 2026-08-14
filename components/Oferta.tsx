@@ -192,31 +192,7 @@ export function Oferta() {
               </article>
             </Reveal>
           ))}
-        </div>
-
-        <Reveal delay={0.22}>
-          <div className="mt-4 grid gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-4 backdrop-blur transition duration-300 hover:border-red-500/35 hover:bg-white/[0.055] lg:grid-cols-[1fr_1.3fr_auto] lg:items-center">
-            <div className="flex items-center gap-4">
-              <MessageCircle className="h-8 w-8 text-red-500" />
-              <p className="text-base font-black">
-                Nie wiesz, która opcja będzie dla Ciebie najlepsza?
-              </p>
-            </div>
-
-            <p className="text-sm leading-5 text-white/66">
-              Podczas darmowej konsultacji wspólnie wybierzemy formę współpracy
-              najlepiej dopasowaną do Twojego celu i możliwości.
-            </p>
-
-            <a
-              href="#kontakt"
-              className="group inline-flex items-center justify-center gap-3 rounded-md border border-red-600 bg-black/20 px-6 py-2.5 text-sm font-black transition duration-300 hover:bg-red-600"
-            >
-              Umów konsultację
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
-          </div>
-        </Reveal>
+        </div>        
       </div>
     </section>
   );
