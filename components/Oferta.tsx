@@ -103,9 +103,7 @@ export function Oferta() {
             </h2>
 
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-5 text-white/68">
-              Niezależnie od wybranej opcji otrzymujesz ten sam system
-              prowadzenia. Różnica polega jedynie na miejscu i częstotliwości
-              naszych spotkań.
+              W każdej z tych opcji otrzymujesz tą samą jakość prowadzenia. Różnica polega jedynie na miejscu i częstotliwości naszych spotkań.
             </p>
           </div>
         </Reveal>

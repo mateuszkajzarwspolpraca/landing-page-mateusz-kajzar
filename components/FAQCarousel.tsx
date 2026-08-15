@@ -23,7 +23,7 @@ const faqItems = [
     question: "Czy muszę mieć doświadczenie?",
     shortQuestion: "Doświadczenie",
     answer:
-      "Tak. Większość moich podopiecznych zaczyna od podstaw. Na początku skupiamy się na nauce techniki, dobraniu odpowiednich ciężarów i zbudowaniu regularności. Nie musisz wiedzieć, od czego zacząć - od tego jestem ja.",
+      "Nie. Większość moich podopiecznych zaczyna od podstaw. Na początku skupiamy się na nauce techniki, dobraniu odpowiednich ciężarów i zbudowaniu regularności. Nie musisz wiedzieć, od czego zacząć - od tego jestem ja.",
   },
   {
     category: "ŻYWIENIE",

@@ -7,7 +7,7 @@ const beliefs = [
   "Plan dopasowujemy do życia.",
   "Trening ma budować pewność siebie.",
   "Nie ma głupich pytań.",
-  "Liczy się proces, nie jeden trening.",
+  "Małymi krokami też da się dojść do celu.",
 ];
 
 const stats = [
@@ -57,22 +57,6 @@ export function Omnie() {
             </h2>
           </Reveal>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 lg:absolute lg:bottom-8 lg:right-[12.5rem] lg:mt-0 lg:w-[92%] lg:grid-cols-4 lg:pr-0">
-            {stats.map((stat, index) => (
-              <Reveal key={stat.label} delay={0.08 * index} className="h-full">
-                <div className="h-full rounded-lg border border-white/12 bg-black/45 p-3 backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:bg-white/[0.06] lg:bg-white/[0.055]">
-                <stat.icon className="h-5 w-5 text-red-500 lg:h-6 lg:w-6" />
-                  <p className="mt-4 text-3xl font-black leading-none text-white lg:mt-5">
-                    {stat.value}
-                  </p>
-                <div className="mt-3 h-0.5 w-7 bg-red-600" />
-                  <p className="mt-2 text-xs leading-5 text-white/72 lg:mt-3">
-                    {stat.label}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
 
         <div className="mt-8 flex min-w-0 flex-col justify-center lg:mt-0 lg:pl-8">
@@ -95,20 +79,15 @@ export function Omnie() {
               </p>
 
               <p>
-                Zależy mi, żeby trening był prosty, skuteczny i dopasowany do
-                Twojego życia - nie odwrotnie.
+                Zależy mi na tym, żeby trening był prosty, skuteczny i dopasowany do Twojego życia - nie odwrotnie.
               </p>
 
               <p>
-                Dlatego zamiast gotowych schematów stawiam na indywidualne
-                podejście, analizę techniki i regularny kontakt.
+                Dlatego zamiast gotowych schematów stawiam na indywidualne podejście, analizę techniki i regularny kontakt.
               </p>
 
               <p className="pt-1 font-semibold text-white">
-                Moim zadaniem jest nie tylko ułożyć plan.
-                <span className="block">
-                  Moim zadaniem jest przeprowadzić Cię przez cały proces.
-                </span>
+                Moim zadaniem nie jest tylko ułożyć plan i zostawić Cię samego - zamierzam przeprowadzić Cię przez cały proces i być Twoim wsparciem.
               </p>
             </div>
           </Reveal>
