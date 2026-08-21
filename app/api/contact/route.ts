@@ -5,8 +5,14 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const { name, email, phone, cooperation, goal } = body;
+    const { name, email, phone, cooperation, goal, privacyAccepted } = body;
 
+    if (!privacyAccepted) {
+  return NextResponse.json(
+    { message: "Zaakceptuj Politykę prywatności." },
+    { status: 400 }
+  );
+}
     if (!name || !email || !phone || !cooperation || !goal) {
       return NextResponse.json(
         { message: "Uzupełnij wszystkie wymagane pola." },

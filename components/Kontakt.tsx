@@ -81,6 +81,7 @@ export function Kontakt() {
       phone: String(formData.get("phone") || ""),
       cooperation: String(formData.get("cooperation") || ""),
       goal: String(formData.get("goal") || ""),
+      privacyAccepted: formData.get("privacyAccepted") === "on",
     };
 
     setIsSubmitting(true);
@@ -297,7 +298,24 @@ export function Kontakt() {
                     na mail.
                   </p>
                 )}
-
+                <label className="flex items-start gap-3 rounded-md border border-white/10 bg-white/[0.03] p-3 text-sm leading-5 text-neutral-400">
+  <input
+    required
+    type="checkbox"
+    name="privacyAccepted"
+    className="mt-1 h-4 w-4 shrink-0 accent-red-600"
+  />
+  <span>
+    Zapoznałem/am się z{" "}
+    <a
+      href="/polityka-prywatnosci"
+      className="font-bold text-red-500 underline underline-offset-4"
+    >
+      Polityką prywatności
+    </a>
+    .
+  </span>
+</label>
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -311,6 +329,7 @@ export function Kontakt() {
                   <Lock className="h-4 w-4" />
                   Twoje dane są u nas bezpieczne. Nie udostępniamy ich osobom
                   trzecim.
+                  <a href="/polityka-prywatnosci">Polityka prywatności</a>
                 </p>
               </form>
             </div>
