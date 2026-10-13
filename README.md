@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# dekomplikator.com
 
-## Getting Started
+Strona trenera personalnego Mateusza Kajzara: prowadzenie online i treningi w Jaworznie.
+Kontakt z klientem odbywa się przez wiadomość (DM) na Instagramie, więc strona nie ma formularza ani bazy danych.
 
-First, run the development server:
+## Technologie
+
+- **Next.js 16** (App Router): framework do budowy stron w React. Każdy folder w `app/` to osobny adres strony.
+- **React 19**: komponenty, czyli kawałki interfejsu (przycisk, karta, sekcja).
+- **TypeScript**: JavaScript z typami. Edytor podpowiada, jakie pola ma obiekt, i wyłapuje literówki.
+- **Tailwind CSS 4**: style pisane klasami prosto w kodzie, np. `className="text-white bg-black p-4"`.
+- **shadcn/ui + Radix UI**: gotowy, dostępny komponent rozwijanej listy (tylko FAQ).
+- **lucide-react**: ikony.
+- **Netlify**: hosting.
+
+## Uruchomienie na komputerze
+
+Potrzebny jest Node.js (wersja 20 albo nowsza).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install      # instaluje biblioteki (raz, i po każdej zmianie package.json)
+npm run dev      # podgląd na żywo: http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Przed publikacją warto sprawdzić, czy wszystko się buduje:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint     # szuka błędów w kodzie
+npm run build    # buduje stronę tak, jak zrobi to Netlify
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Struktura projektu
 
-## Learn More
+```
+app/                          Podstrony. Folder = adres, plik page.tsx = treść strony.
+  layout.tsx                  Szkielet wspólny dla wszystkich stron (SEO, loader, cookies, GTM).
+  globals.css                 Globalne style: kolory marki, czcionka, animacje.
+  page.tsx                    Strona główna (/) z wyborem: online albo Jaworzno.
+  online/
+    page.tsx                  Układ strony /online (kolejność sekcji).
+    content.tsx               Teksty strony /online (historie, obawy, cennik, FAQ…).
+  jaworzno/
+    page.tsx                  Układ strony /jaworzno.
+    content.tsx               Teksty strony /jaworzno.
+  regulamin/page.tsx          Regulamin.
+  polityka-prywatnosci/page.tsx  Polityka prywatności (RODO, cookies).
+  error.tsx, not-found.tsx    Strona błędu i strona 404.
+  robots.ts, sitemap.ts       Pliki dla wyszukiwarek (/robots.txt, /sitemap.xml).
 
-To learn more about Next.js, take a look at the following resources:
+components/
+  site/                       Komponenty tej strony.
+    Section.tsx               Sekcja, nagłówek sekcji, blok tekstu.
+    Cards.tsx                 Karty: opinia, cennik, kroki, lista z ptaszkami, ocena Google.
+    OnlineSections.tsx        Karty tylko dla /online: historie, obawy, etapy, roadmapa.
+    SwipeCarousel.tsx         Zapętlona karuzela do przesuwania palcem.
+    VideoEmbed.tsx            Film z YouTube wczytywany dopiero po kliknięciu (VSL na /online).
+    DmButton.tsx              Przyciski „Napisz do mnie na Instagramie”.
+    StickyDm.tsx              Przycisk DM przyklejony do dołu ekranu (telefon).
+    SiteHeader.tsx            Górny pasek z menu.
+    SiteFooter.tsx            Stopka.
+    Faq.tsx                   Rozwijane pytania i odpowiedzi.
+    LegalPage.tsx             Układ regulaminu i polityki prywatności.
+    PageLoader.tsx            Ekran ładowania z logo.
+    CookieConsent.tsx         Baner zgody na cookies.
+    GoogleTagManager.tsx      Statystyki (ładują się dopiero po zgodzie).
+  ui/
+    accordion.tsx             Gotowy komponent z shadcn/ui (zwykle się go nie edytuje).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+lib/                          Logika i dane, bez wyglądu.
+  site.ts                     Stałe: adres strony, Instagram, e-mail, ocena Google, siłownia.
+  content.ts                  Teksty wspólne: opinie z Google i podstawowe FAQ.
+  consent.ts                  Zapis i odczyt zgody na cookies.
+  analytics.ts                Wysyłanie zdarzeń do Google Tag Managera.
+  utils.ts                    Funkcja cn() do sklejania klas Tailwinda.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+public/images/                Zdjęcia i logo (adres w kodzie zaczyna się od /images/…).
+```
 
-## Deploy on Vercel
+## Najczęstsze zmiany
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Chcę zmienić… | Gdzie |
+|---|---|
+| Tekst na stronie /online albo /jaworzno | `app/online/content.tsx`, `app/jaworzno/content.tsx`; nagłówki i krótkie akapity sekcji są w `page.tsx` obok |
+| Kolejność sekcji | `page.tsx` danej strony (sekcje są ponumerowane w komentarzach) |
+| Ceny | sekcja „Oferta” w `page.tsx` danej strony |
+| Opinie z Google | `lib/content.ts` (`REVIEWS`), wybór i kolejność w `page.tsx` danej strony |
+| Pytania FAQ | wspólne w `lib/content.ts` (`FAQ_BASE`), lista dla strony w jej `content.tsx` |
+| Instagram, e-mail, ocena Google, adres siłowni | `lib/site.ts` |
+| Kolory tła kart i sekcji | `app/globals.css` (`--color-surface`, `--color-surface-dark`) |
+| Film VSL (link, zdjęcie przed kliknięciem) | `VSL` w `app/online/content.tsx` |
+| Tytuł i opis w Google | `metadata` w `page.tsx` danej strony, domyślne w `app/layout.tsx` |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Nowa podstrona
+
+1. Utwórz folder w `app/`, np. `app/nowa/`, a w nim `page.tsx`. Strona będzie pod adresem `/nowa`.
+2. Złóż ją z gotowych klocków: `SiteHeader`, `Section`, `SectionHeading`, `Prose`, `DmBlock`, `SiteFooter`.
+3. Dopisz adres do `app/sitemap.ts`.
+
+## Statystyki i cookies
+
+- Google Tag Manager (`GTM-N5ZHS5DS`) ładuje się dopiero po kliknięciu „Akceptuję” w banerze cookies.
+- Każde kliknięcie przycisku DM wysyła do GTM zdarzenie `dm_click` z polem `dm_source` (np. `online-hero`).
+  Żeby je liczyć, ustaw w panelu GTM regułę (trigger) na zdarzenie niestandardowe `dm_click`.
+- Włączenie filmu VSL wysyła zdarzenie `video_play` (pole `video_id`).
+
+## Do uzupełnienia
+
+- `GOOGLE_REVIEWS_URL` w `lib/site.ts`: link do opinii Google (wtedy ocena na stronie stanie się klikalna).

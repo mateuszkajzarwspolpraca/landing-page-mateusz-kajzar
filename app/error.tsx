@@ -1,9 +1,14 @@
 "use client";
 
+/**
+ * Strona błędu. Next.js pokazuje ją sam, gdy coś się wysypie podczas wyświetlania podstrony.
+ */
+
 import { AlertTriangle, ArrowLeft, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 
+/** Next.js przekazuje błąd i funkcję `reset`, która próbuje wyrenderować stronę jeszcze raz. */
 type ErrorPageProps = {
   error: Error & { digest?: string };
   reset: () => void;
@@ -16,7 +21,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-black px-5 text-white">
-      <div className="w-full max-w-xl rounded-lg border border-red-500/30 bg-[#111111]/80 p-6 text-center shadow-[0_0_80px_rgba(239,35,42,0.12)] backdrop-blur">
+      <div className="w-full max-w-xl rounded-lg border border-red-500/30 bg-surface/80 p-6 text-center shadow-[0_0_80px_rgba(239,35,42,0.12)] backdrop-blur">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-red-500/30 bg-red-600/10 text-red-500">
           <AlertTriangle className="h-8 w-8" />
         </div>

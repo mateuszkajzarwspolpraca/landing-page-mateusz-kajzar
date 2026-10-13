@@ -1,31 +1,35 @@
+/**
+ * Główny układ (layout) całej strony. Next.js owija nim każdą podstronę.
+ * Tu są: domyślne dane SEO, globalne style, ekran ładowania, Google Tag Manager i baner cookies.
+ */
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { GoogleTagManager } from "@/components/GoogleTagManager";
+import { CookieConsent } from "@/components/site/CookieConsent";
+import { GoogleTagManager } from "@/components/site/GoogleTagManager";
+import { PageLoader } from "@/components/site/PageLoader";
+import { SITE_URL } from "@/lib/site";
 
-
+/**
+ * Domyślne dane SEO dla wszystkich podstron. Podstrona może je nadpisać własnym `metadata`.
+ * `template` dokleja „| Mateusz Kajzar” do tytułu każdej podstrony.
+ */
 export const metadata: Metadata = {
-  metadataBase: new URL("https://landing-page-mateusz-kajzar.vercel.app"),
-  title:
-    "Mateusz Kajzar | Trener Personalny Jaworzno i Trzebinia | Trener Online",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Mateusz Kajzar | Trener personalny online i w Jaworznie",
+    template: "%s | Mateusz Kajzar",
+  },
   description:
-    "Indywidualne prowadzenie treningowe online i stacjonarnie w Jaworznie oraz Trzebini. Plan treningowy, analiza techniki, stały kontakt i wsparcie na każdym etapie.",
-  keywords: [
-    "trener personalny Jaworzno",
-    "trener personalny Trzebinia",
-    "trener online",
-    "prowadzenie treningowe online",
-    "plan treningowy",
-    "analiza techniki",
-    "trening personalny Jaworzno",
-    "trening personalny Trzebinia",
-  ],
+    "Trening bez komplikowania. Prowadzenie online z każdego miejsca w Polsce i treningi personalne w Jaworznie.",
+  /** Ikonka w karcie przeglądarki. */
+  icons: { icon: "/images/logo/logo.PNG", apple: "/images/logo/logo.PNG" },
   authors: [{ name: "Mateusz Kajzar" }],
   creator: "Mateusz Kajzar",
+  /** Podgląd linku na Facebooku, Messengerze, WhatsAppie itd. */
   openGraph: {
     title: "Proste zasady. Widoczne efekty.",
-    description:
-      "Mateusz Kajzar - trener personalny Jaworzno, Trzebinia i prowadzenie online.",
+    description: "Mateusz Kajzar — trener personalny. Prowadzenie online i treningi w Jaworznie.",
     type: "website",
     locale: "pl_PL",
     siteName: "Mateusz Kajzar Trener Personalny",
@@ -38,28 +42,30 @@ export const metadata: Metadata = {
       },
     ],
   },
-twitter: {
-  card: "summary_large_image",
-  title: "Proste zasady. Widoczne efekty.",
-  description:
-    "Mateusz Kajzar - trener personalny Jaworzno, Trzebinia i prowadzenie online.",
-  images: ["/images/og/og-image.png"],
-},
+  twitter: {
+    card: "summary_large_image",
+    title: "Proste zasady. Widoczne efekty.",
+    description: "Mateusz Kajzar — trener personalny. Prowadzenie online i treningi w Jaworznie.",
+    images: ["/images/og/og-image.png"],
+  },
 };
 
+/** Szkielet HTML wspólny dla wszystkich podstron. `children` to treść konkretnej podstrony. */
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pl"
-      className="antialiased"
-    >
-      <body className="min-h-full flex flex-col">
+    <html lang="pl" className="antialiased">
+      <body className="flex min-h-full flex-col bg-black text-white">
+        {/* Ekran ładowania z logo */}
+        <PageLoader />
+        {/* Statystyki: ładują się dopiero po zgodzie na cookies */}
         <GoogleTagManager />
         {children}
+        {/* Baner zgody na cookies */}
+        <CookieConsent />
       </body>
     </html>
   );

@@ -1,5 +1,14 @@
 "use client"
 
+/**
+ * Rozwijana lista (akordeon) z biblioteki shadcn/ui, oparta na Radix UI.
+ * Gotowy komponent wygenerowany komendą `npx shadcn add accordion`.
+ * Na stronie używa go tylko FAQ (components/site/Faq.tsx), które nadpisuje tu style.
+ *
+ * Pliki w components/ui to „klocki” z shadcn. Zwykle się ich nie edytuje,
+ * tylko zmienia wygląd przez className w miejscu użycia.
+ */
+
 import * as React from "react"
 import { Accordion as AccordionPrimitive } from "radix-ui"
 

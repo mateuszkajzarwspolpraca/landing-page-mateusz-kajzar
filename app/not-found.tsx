@@ -1,3 +1,6 @@
+/**
+ * Strona 404. Next.js pokazuje ją, gdy ktoś wejdzie na adres, który nie istnieje.
+ */
 import Link from "next/link";
 
 export default function NotFound() {
