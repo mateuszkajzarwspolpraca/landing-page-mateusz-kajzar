@@ -1,12 +1,12 @@
 /**
  * Główny układ (layout) całej strony. Next.js owija nim każdą podstronę.
- * Tu są: domyślne dane SEO, globalne style, ekran ładowania, Google Tag Manager i baner cookies.
+ * Tu są: domyślne dane SEO, globalne style, ekran ładowania, Google Analytics i baner cookies.
  */
 import type { Metadata } from "next";
 
 import "./globals.css";
 import { CookieConsent } from "@/components/site/CookieConsent";
-import { GoogleTagManager } from "@/components/site/GoogleTagManager";
+import { GoogleAnalytics } from "@/components/site/GoogleAnalytics";
 import { PageLoader } from "@/components/site/PageLoader";
 import { SITE_URL } from "@/lib/site";
 
@@ -62,7 +62,7 @@ export default function RootLayout({
         {/* Ekran ładowania z logo */}
         <PageLoader />
         {/* Statystyki: ładują się dopiero po zgodzie na cookies */}
-        <GoogleTagManager />
+        <GoogleAnalytics />
         {children}
         {/* Baner zgody na cookies */}
         <CookieConsent />

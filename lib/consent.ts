@@ -4,7 +4,7 @@
  * Decyzja użytkownika („Akceptuję” albo „Tylko niezbędne”) jest zapisana w localStorage przeglądarki.
  * Korzystają z tego:
  * - components/site/CookieConsent.tsx – baner z pytaniem o zgodę,
- * - components/site/GoogleTagManager.tsx – ładuje GTM dopiero po zgodzie,
+ * - components/site/GoogleAnalytics.tsx – ładuje statystyki dopiero po zgodzie,
  * - components/site/SiteFooter.tsx – link „Ustawienia cookies”, który otwiera baner ponownie.
  */
 

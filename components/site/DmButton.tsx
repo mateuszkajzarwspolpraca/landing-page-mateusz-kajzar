@@ -3,7 +3,7 @@
 /**
  * Przyciski „Napisz do mnie na Instagramie”.
  *
- * Każde kliknięcie otwiera rozmowę na Instagramie i wysyła do Google Tag Managera zdarzenie
+ * Każde kliknięcie otwiera rozmowę na Instagramie i wysyła do Google Analytics zdarzenie
  * `dm_click` z polem `dm_source`. Dzięki temu w statystykach widać, który przycisk działa najlepiej.
  */
 
@@ -28,7 +28,7 @@ export function DmButton({ source, label = "Napisz do mnie na Instagramie", clas
       href={INSTAGRAM_DM_URL}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackEvent({ event: "dm_click", dm_source: source })}
+      onClick={() => trackEvent("dm_click", { dm_source: source })}
       className={cn(
         "group inline-flex w-full items-center justify-center gap-3 rounded-lg bg-red-600 px-6 py-4 text-base font-black text-white shadow-[0_18px_60px_rgba(236,31,39,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-red-500 sm:w-auto sm:min-w-[320px]",
         className

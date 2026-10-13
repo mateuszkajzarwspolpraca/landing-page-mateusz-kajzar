@@ -33,7 +33,7 @@ npm run build    # buduje stronę tak, jak zrobi to Netlify
 
 ```
 app/                          Podstrony. Folder = adres, plik page.tsx = treść strony.
-  layout.tsx                  Szkielet wspólny dla wszystkich stron (SEO, loader, cookies, GTM).
+  layout.tsx                  Szkielet wspólny dla wszystkich stron (SEO, loader, cookies, statystyki).
   globals.css                 Globalne style: kolory marki, czcionka, animacje.
   page.tsx                    Strona główna (/) z wyborem: online albo Jaworzno.
   online/
@@ -62,7 +62,7 @@ components/
     LegalPage.tsx             Układ regulaminu i polityki prywatności.
     PageLoader.tsx            Ekran ładowania z logo.
     CookieConsent.tsx         Baner zgody na cookies.
-    GoogleTagManager.tsx      Statystyki (ładują się dopiero po zgodzie).
+    GoogleAnalytics.tsx       Statystyki Google Analytics (ładują się dopiero po zgodzie).
   ui/
     accordion.tsx             Gotowy komponent z shadcn/ui (zwykle się go nie edytuje).
 
@@ -70,7 +70,7 @@ lib/                          Logika i dane, bez wyglądu.
   site.ts                     Stałe: adres strony, Instagram, e-mail, ocena Google, siłownia.
   content.ts                  Teksty wspólne: opinie z Google i podstawowe FAQ.
   consent.ts                  Zapis i odczyt zgody na cookies.
-  analytics.ts                Wysyłanie zdarzeń do Google Tag Managera.
+  analytics.ts                Wysyłanie własnych zdarzeń do Google Analytics.
   utils.ts                    Funkcja cn() do sklejania klas Tailwinda.
 
 public/images/                Zdjęcia i logo (adres w kodzie zaczyna się od /images/…).
@@ -98,9 +98,10 @@ public/images/                Zdjęcia i logo (adres w kodzie zaczyna się od /i
 
 ## Statystyki i cookies
 
-- Google Tag Manager (`GTM-N5ZHS5DS`) ładuje się dopiero po kliknięciu „Akceptuję” w banerze cookies.
-- Każde kliknięcie przycisku DM wysyła do GTM zdarzenie `dm_click` z polem `dm_source` (np. `online-hero`).
-  Żeby je liczyć, ustaw w panelu GTM regułę (trigger) na zdarzenie niestandardowe `dm_click`.
+- Google Analytics 4 ładuje się dopiero po kliknięciu „Akceptuję” w banerze cookies.
+  Identyfikator `G-…` wpisuje się w `lib/site.ts` (`GA_MEASUREMENT_ID`).
+- Każde kliknięcie przycisku DM wysyła do GA4 zdarzenie `dm_click` z parametrem `dm_source` (np. `online-hero`).
+  Żeby widzieć rozbicie na przyciski, w GA4 utwórz wymiar niestandardowy: Administracja → Niestandardowe definicje → parametr `dm_source`.
 - Włączenie filmu VSL wysyła zdarzenie `video_play` (pole `video_id`).
 
 ## Do uzupełnienia

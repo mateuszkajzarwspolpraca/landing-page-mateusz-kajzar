@@ -1,30 +1,24 @@
 /**
- * Mierzenie kliknięć (Google Tag Manager).
+ * Wysyłanie własnych zdarzeń do Google Analytics 4 (np. kliknięcie „Napisz do mnie”).
  *
- * GTM czyta zdarzenia z globalnej tablicy `window.dataLayer`. My tylko dopisujemy do niej obiekt,
- * a co się z nim dalej dzieje (np. wysyłka do Google Analytics albo Meta), ustawia się w panelu GTM.
+ * Funkcja `gtag` istnieje w przeglądarce dopiero po zgodzie na cookies,
+ * kiedy wczyta się GA (components/site/GoogleAnalytics.tsx). Bez zgody zdarzenie jest pomijane.
  */
 
-/** Zdarzenie dla GTM: musi mieć nazwę `event`, reszta pól jest dowolna. */
-type DataLayerEvent = Record<string, unknown> & { event: string };
-
-// Informujemy TypeScript, że w przeglądarce może istnieć `window.dataLayer`.
+// Informujemy TypeScript, że w przeglądarce może istnieć funkcja `window.gtag` od Google.
 declare global {
   interface Window {
-    dataLayer?: unknown[];
+    gtag?: (command: "event", name: string, params?: Record<string, unknown>) => void;
   }
 }
 
 /**
- * Dopisuje zdarzenie do dataLayer.
+ * Wysyła zdarzenie do GA4.
  *
- * Zdarzenie trafia tam zawsze, ale GTM ładuje się dopiero po zgodzie na cookies
- * (zob. components/site/GoogleTagManager.tsx), więc bez zgody nikt go nie odczyta.
- *
- * Przykład: trackEvent({ event: "dm_click", dm_source: "online-hero" })
+ * Przykład: trackEvent("dm_click", { dm_source: "online-hero" })
+ * W GA4 zobaczysz je w Raporty → Zaangażowanie → Zdarzenia.
  */
-export function trackEvent(payload: DataLayerEvent) {
+export function trackEvent(name: string, params?: Record<string, unknown>) {
   if (typeof window === "undefined") return; // na serwerze nie ma okna przeglądarki
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(payload);
+  window.gtag?.("event", name, params);
 }

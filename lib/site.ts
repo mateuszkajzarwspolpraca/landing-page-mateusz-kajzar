@@ -33,6 +33,13 @@ export const GOOGLE_REVIEWS_URL = "";
 /** Ocena z Google. Aktualizuj ręcznie, kiedy przybędą opinie. */
 export const GOOGLE_RATING = { value: "5,0", count: 6 };
 
+/**
+ * Identyfikator Google Analytics 4.
+ * Gdzie go znaleźć: analytics.google.com → Administracja → Strumienie danych → strumień strony → Identyfikator pomiaru.
+ * Pusty = statystyki wyłączone.
+ */
+export const GA_MEASUREMENT_ID = "G-3E6P5NWJW9";
+
 /** Siłownia, w której odbywają się treningi stacjonarne (strona /jaworzno). */
 export const GYM = {
   name: "Fitness Club Graviton",

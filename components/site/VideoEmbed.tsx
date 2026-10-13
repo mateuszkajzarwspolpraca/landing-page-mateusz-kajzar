@@ -9,7 +9,7 @@
  * - do Google nic nie trafia, dopóki użytkownik sam nie włączy filmu (RODO).
  * Po kliknięciu wstawiamy odtwarzacz z domeny youtube-nocookie.com, który rusza od razu.
  *
- * Kliknięcie wysyła do Google Tag Managera zdarzenie `video_play` (pole `video_id`).
+ * Kliknięcie wysyła do Google Analytics zdarzenie `video_play` (pole `video_id`).
  */
 
 import Image from "next/image";
@@ -44,7 +44,7 @@ export function VideoEmbed({
   const [playing, setPlaying] = useState(false);
 
   const start = () => {
-    trackEvent({ event: "video_play", video_id: videoId });
+    trackEvent("video_play", { video_id: videoId });
     setPlaying(true);
   };
 

@@ -39,8 +39,8 @@ export function CookieConsent() {
     const previous = readConsent();
     writeConsent(value);
     setReopened(false);
-    // GTM, który już się wczytał, nie da się „wyładować”. Gdy ktoś cofa zgodę,
-    // odświeżamy stronę i GTM się nie załaduje.
+    // Google Analytics, który już się wczytał, nie da się „wyładować”. Gdy ktoś cofa zgodę,
+    // odświeżamy stronę i GA się nie załaduje.
     if (previous === "granted" && value === "denied") window.location.reload();
   };
 

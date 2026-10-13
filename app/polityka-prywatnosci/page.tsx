@@ -72,8 +72,7 @@ export default function PolitykaPrywatnosciPage() {
           <li>Netlify — hosting strony,</li>
           <li>Meta Platforms (Instagram) — jeśli piszesz do mnie na Instagramie,</li>
           <li>Google (YouTube) — jeśli klikniesz, żeby odtworzyć film na stronie. Odtwarzacz wczytuje się dopiero po kliknięciu, w trybie ograniczonych plików cookies (youtube-nocookie.com),</li>
-          <li>Google — poczta e-mail oraz, po wyrażeniu zgody, Google Tag Manager i skonfigurowane w nim narzędzia analityczne,</li>
-          <li>dostawcy narzędzi reklamowych skonfigurowanych w Google Tag Manager (np. Meta Pixel), wyłącznie po wyrażeniu zgody.</li>
+          <li>Google — poczta e-mail oraz, po wyrażeniu zgody, Google Analytics (statystyki odwiedzin),</li>
         </ul>
         <p className="mt-3">Część z tych firm może przetwarzać dane poza Europejskim Obszarem Gospodarczym, na zasadach opisanych w ich politykach prywatności.</p>
       </section>
@@ -81,7 +80,7 @@ export default function PolitykaPrywatnosciPage() {
       <section id="cookies">
         <h2>6. Pliki cookies</h2>
         <p>
-          Przy pierwszej wizycie pytam o zgodę. Do czasu kliknięcia „Akceptuję” nie ładuję Google Tag Managera ani żadnych
+          Przy pierwszej wizycie pytam o zgodę. Do czasu kliknięcia „Akceptuję” nie ładuję Google Analytics ani żadnych
           narzędzi analitycznych i reklamowych. Twój wybór zapisuję w pamięci przeglądarki (localStorage), żeby nie pytać przy
           każdej wizycie.
         </p>
