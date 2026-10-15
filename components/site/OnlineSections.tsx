@@ -11,13 +11,14 @@ import { cn } from "@/lib/utils";
 /* ---------- Historie ---------- */
 
 /** Kolor akcentu karty historii. Każda historia ma inny, żeby karty się od siebie odróżniały. */
-export type StoryColor = "amber" | "sky" | "emerald";
+export type StoryColor = "amber" | "sky" | "emerald" | "violet";
 
-/** Klasy Tailwinda dla każdego koloru: kółko z inicjałem, pasek na górze karty i podpis. */
-const STORY_COLORS: Record<StoryColor, { avatar: string; band: string; tag: string }> = {
-  amber: { avatar: "bg-amber-400 text-black", band: "from-amber-400", tag: "text-amber-300" },
-  sky: { avatar: "bg-sky-400 text-black", band: "from-sky-400", tag: "text-sky-300" },
-  emerald: { avatar: "bg-emerald-400 text-black", band: "from-emerald-400", tag: "text-emerald-300" },
+/** Klasy Tailwinda dla każdego koloru: kółko z inicjałem i podpis pod imieniem. */
+const STORY_COLORS: Record<StoryColor, { avatar: string; tag: string }> = {
+  amber: { avatar: "bg-amber-400 text-black", tag: "text-amber-300" },
+  sky: { avatar: "bg-sky-400 text-black", tag: "text-sky-300" },
+  emerald: { avatar: "bg-emerald-400 text-black", tag: "text-emerald-300" },
+  violet: { avatar: "bg-violet-400 text-black", tag: "text-violet-300" },
 };
 
 /** Dane jednej historii podopiecznego. */
@@ -27,73 +28,84 @@ export type Story = {
   /** Krótki podpis pod imieniem, np. „Pierwszy raz na siłowni”. */
   tag: string;
   color: StoryColor;
-  /** Sekcja „Start”: z czym przyszła/przyszedł. */
-  start: ReactNode;
-  /** Sekcja „Po drodze”: co się działo w trakcie. */
-  journey: ReactNode;
-  /** Nagłówek sekcji wyniku, np. „Po 3 miesiącach”. */
-  resultLabel: string;
-  /** Wynik: tekst albo tabelka (ResultTable). */
-  result: ReactNode;
+  /** Nagłówek pierwszej sekcji: „Przyszła z” albo „Przyszedł z”. */
+  startLabel: string;
+  /** Z czym przyszła/przyszedł (cel i punkt startu). */
+  start: string;
+  /** Co stało na drodze. */
+  obstacles: string;
+  /** Kiedy liczony efekt, np. „po 3 miesiącach” (wyświetla się jako „Efekt · po 3 miesiącach”). */
+  when: string;
+  /** Główny efekt dużymi literami, np. „Talia −6 cm”. */
+  headline: string;
+  /** Szczegóły efektu: [co, wynik], np. ["Hip thrust", "0 → 45 kg"]. */
+  rows: [string, string][];
   /** Cytat podopiecznego na dole karty (bez cudzysłowów, dodają się same). */
   quote: string;
-  /** Opcjonalne zdanie przed cytatem, np. „Po zawodach napisała:”. */
-  quoteLead?: string;
 };
 
-/** Karta jednej historii w karuzeli „Historie”. */
+/** Mały szary nagłówek sekcji w karcie, np. „PRZESZKODY”. */
+function CardLabel({ children }: { children: ReactNode }) {
+  return <p className="text-xs font-black uppercase tracking-[0.18em] text-white/45">{children}</p>;
+}
+
+/**
+ * Karta jednej historii w karuzeli „Historie”.
+ * Układ: imię → z czym przyszła/przyszedł → przeszkody → efekt (duży nagłówek + tabelka) → cytat.
+ * Efekt jest dosunięty do dołu karty, żeby w różnych kartach wypadał na podobnej wysokości.
+ */
 export function StoryCard({ story }: { story: Story }) {
   const color = STORY_COLORS[story.color];
   return (
-    <article className="relative flex h-full flex-col overflow-hidden rounded-lg border border-white/10 bg-surface">
-      <div className={cn("h-1.5 w-full bg-gradient-to-r to-transparent", color.band)} />
-      <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <header className="flex items-center gap-4">
-          <span
-            aria-hidden="true"
-            className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-2xl font-black", color.avatar)}
-          >
-            {story.name.charAt(0)}
-          </span>
-          <div>
-            <p className="text-2xl font-black leading-tight text-white">{story.name}</p>
-            <p className={cn("mt-0.5 text-sm font-bold leading-snug", color.tag)}>{story.tag}</p>
-          </div>
-        </header>
+    <article className="flex h-full flex-col rounded-lg border border-white/10 bg-surface p-5 sm:p-6">
+      <header className="flex items-center gap-4">
+        <span
+          aria-hidden="true"
+          className={cn("flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-2xl font-black", color.avatar)}
+        >
+          {story.name.charAt(0)}
+        </span>
+        <div>
+          <p className="text-2xl font-black leading-tight text-white">{story.name}</p>
+          <p className={cn("mt-0.5 text-sm font-bold leading-snug", color.tag)}>{story.tag}</p>
+        </div>
+      </header>
 
-        <dl className="mt-6 flex-1 space-y-5 text-sm leading-6 text-white/75 sm:text-base sm:leading-7">
-          <div>
-            <dt className="text-xs font-black uppercase tracking-[0.18em] text-white/45">Start</dt>
-            <dd className="mt-1">{story.start}</dd>
-          </div>
-          <div>
-            <dt className="text-xs font-black uppercase tracking-[0.18em] text-white/45">Po drodze</dt>
-            <dd className="mt-1">{story.journey}</dd>
-          </div>
-          <div>
-            <dt className="text-xs font-black uppercase tracking-[0.18em] text-white/45">{story.resultLabel}</dt>
-            <dd className="mt-1 text-white">{story.result}</dd>
-          </div>
-        </dl>
+      <div className="mt-6 space-y-4 text-sm leading-6 text-white/80 sm:text-base sm:leading-7">
+        <div>
+          <CardLabel>{story.startLabel}</CardLabel>
+          <p className="mt-1">{story.start}</p>
+        </div>
+        <div>
+          <CardLabel>Przeszkody</CardLabel>
+          <p className="mt-1">{story.obstacles}</p>
+        </div>
+      </div>
 
-        <figure className="mt-6 rounded-md bg-white/[0.04] p-4">
-          {story.quoteLead && <figcaption className="text-sm text-white/55">{story.quoteLead}</figcaption>}
-          <blockquote className="mt-1 text-base font-bold leading-7 text-white sm:text-lg">„{story.quote}”</blockquote>
-        </figure>
+      {/* Efekt dosunięty do dołu (mt-auto) */}
+      <div className="mt-auto pt-8">
+        <CardLabel>Efekt · {story.when}</CardLabel>
+        <p className="mt-2 text-2xl font-black leading-tight text-white sm:text-3xl">{story.headline}</p>
+        <div className="mt-4 border-t border-white/10">
+          <ResultTable rows={story.rows} />
+        </div>
+        <blockquote className="mt-5 rounded-md bg-white/[0.04] p-4 text-sm leading-6 text-white sm:text-base sm:leading-7">
+          „{story.quote}”
+        </blockquote>
       </div>
     </article>
   );
 }
 
-/** Mała tabelka „ćwiczenie: przed → po”. */
+/** Tabelka wyników: [co, wynik] w wierszach, np. „Hip thrust · 0 → 45 kg”. */
 export function ResultTable({ rows }: { rows: [string, string][] }) {
   return (
-    <table className="w-full text-left text-sm sm:text-base">
+    <table className="w-full text-left text-sm">
       <tbody className="divide-y divide-white/10">
         {rows.map(([label, value]) => (
           <tr key={label}>
-            <td className="py-1.5 pr-3 text-white/70">{label}</td>
-            <td className="whitespace-nowrap py-1.5 text-right font-black text-white">{value}</td>
+            <td className="py-2 pr-3 text-white/70">{label}</td>
+            <td className="whitespace-nowrap py-2 text-right font-black text-white">{value}</td>
           </tr>
         ))}
       </tbody>

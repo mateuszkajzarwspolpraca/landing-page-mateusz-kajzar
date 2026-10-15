@@ -79,7 +79,6 @@ export function VideoEmbed({
           </span>
           <span className="absolute inset-x-0 bottom-0 p-5">
             <span className="block text-lg font-black text-white">{label}</span>
-            <span className="mt-1 block text-xs text-white/60">Film wczyta się z YouTube po kliknięciu.</span>
           </span>
         </button>
       )}

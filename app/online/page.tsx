@@ -18,8 +18,8 @@ import { SwipeCarousel } from "@/components/site/SwipeCarousel";
 import { VideoEmbed } from "@/components/site/VideoEmbed";
 import { REVIEWS } from "@/lib/content";
 import {
-  DM_NOTE,
-  KEYWORD,
+  DM_NOTE_HERO,
+  DM_NOTE_QUESTIONS,
   afterMessage,
   beliefs,
   faq,
@@ -63,13 +63,9 @@ export default function OnlinePage() {
                 próby Ci nie wyszły.
               </p>
               <div className="mt-7">
-                <DmBlock source="online-hero" keyword={KEYWORD} note={DM_NOTE} />
+                <DmBlock source="online-hero" note={DM_NOTE_HERO} />
               </div>
-              <div className="mt-6 flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
-                <GoogleRatingBadge />
-                <span className="hidden text-white/30 sm:inline">·</span>
-                <span className="text-sm text-white/55">Prowadzenie z każdego miejsca w Polsce</span>
-              </div>
+              <p className="mt-6 text-sm text-white/55">Prowadzenie z każdego miejsca w Polsce</p>
             </div>
             {/* Film VSL (pionowy, z YouTube). Wczytuje się dopiero po kliknięciu. */}
             <VideoEmbed
@@ -87,7 +83,7 @@ export default function OnlinePage() {
           <SectionHeading
             eyebrow="Historie"
             title="Zaczynali dokładnie tam, gdzie Ty teraz."
-            intro={<p>Trzy osoby, trzy różne starty. Zobacz, jak to wyglądało po drodze.</p>}
+            intro={<p>Z czym przyszli, co stało na drodze i co udało się wypracować. Liczby z ich planów i pomiarów.</p>}
           />
           <div className="mt-8">
             <SwipeCarousel label="Historie podopiecznych">
@@ -96,18 +92,24 @@ export default function OnlinePage() {
               ))}
             </SwipeCarousel>
           </div>
-          <p className="mt-6 text-sm text-white/50">Trzy historie, nie obietnica. Każdy zaczyna z innego miejsca i idzie swoim tempem.</p>
+          <p className="mt-6 text-sm text-white/50">Cztery historie, nie obietnica. Każdy zaczyna z innego miejsca i idzie swoim tempem.</p>
         </Section>
 
         {/* 3. Znasz to? */}
         <Section>
           <SectionHeading title="Znasz to?" />
           <Prose className="mt-6">
-            <p>Osiem godzin przy biurku. Krzyż i szyja dają znać, a po schodach do mieszkania wchodzisz z zadyszką.</p>
             <p>
-              Było już podejście: z internetu, z gotowego planu albo z trenerem online. Rozpiska działała, dopóki życie szło
-              idealnie. Potem przyszedł gorszy tydzień i zamiast pomocy padło „musisz się bardziej postarać”. Aż w końcu pojawia
-              się łatka: „nie nadaję się do fitnessu”.
+              Osiem godzin przy biurku, plecy i szyja dają znać, a codzienne czynności sprawiają ból lub dyskomfort.
+            </p>
+            <p>
+              Próbowałeś/aś już sam/a, korzystałeś/aś z darmowych planów albo wykupiłeś/aś prowadzenie u innego trenera online,
+              ale cały czas coś nie wychodziło?
+            </p>
+            <p>
+              Rozpiska działała idealnie, dopóki faktycznie byłeś/aś w stanie się jej trzymać. Gdy tylko pojawiał się trudniejszy
+              okres w życiu, cele treningowe schodziły na dalszy plan. Aż w końcu sam/a przypiąłeś/przypięłaś sobie łatkę: „Ja to
+              się chyba do tego nie nadaję”.
             </p>
           </Prose>
           <Highlight className="mt-8 max-w-2xl">
@@ -206,7 +208,7 @@ export default function OnlinePage() {
             </Card>
           </div>
           <div className="mt-10">
-            <DmBlock source="online-oferta" keyword={KEYWORD} note={DM_NOTE} />
+            <DmBlock source="online-oferta" note={DM_NOTE_QUESTIONS} />
           </div>
         </Section>
 
@@ -298,8 +300,7 @@ export default function OnlinePage() {
             <div className="mt-8">
               <DmBlock
                 source="online-final"
-                keyword={KEYWORD}
-                note="A jeśli jeszcze nie teraz, obserwuj, wracaj. Nikt Cię nie goni."
+                note={DM_NOTE_QUESTIONS}
                 align="center"
               />
             </div>

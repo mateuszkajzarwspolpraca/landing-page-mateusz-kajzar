@@ -43,9 +43,12 @@ export function DmButton({ source, label = "Napisz do mnie na Instagramie", clas
 type DmBlockProps = {
   /** Jak w DmButton: skąd kliknięto. */
   source: string;
-  /** Słowo, które klient ma wpisać w wiadomości, np. "ONLINE". Po nim poznajesz, z której strony przyszedł. */
-  keyword: string;
-  /** Zdanie pod przyciskiem (po „Wpisz „…”.”). Jeśli puste, używany jest tekst domyślny. */
+  /**
+   * Opcjonalne słowo, które klient ma wpisać w wiadomości, np. "JAWORZNO". Po nim poznajesz, z której strony przyszedł.
+   * Jeśli jest podane, pod przyciskiem pojawia się „Wpisz „…”.” przed `note`.
+   */
+  keyword?: string;
+  /** Zdanie pod przyciskiem. Jeśli puste, używany jest tekst domyślny. */
   note?: string;
   /** Wyrównanie: do lewej albo do środka. */
   align?: "left" | "center";
@@ -65,7 +68,8 @@ export function DmBlock({ source, keyword, note, align = "left" }: DmBlockProps)
     >
       <DmButton source={source} />
       <p className="text-sm leading-6 text-white/70">
-        Wpisz „{keyword}”. {note ?? "Odpisuję w ciągu 24 godzin. Pogadamy bez ciśnienia, nic Ci nie wcisnę."}
+        {keyword && <>Wpisz „{keyword}”. </>}
+        {note ?? "Odpisuję w ciągu 24 godzin. Pogadamy bez ciśnienia, nic Ci nie wcisnę."}
       </p>
     </div>
   );

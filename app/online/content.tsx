@@ -8,11 +8,8 @@
  */
 import Link from "next/link";
 import type { FaqItem } from "@/components/site/Faq";
-import { ResultTable, type Fear, type Milestone, type Story } from "@/components/site/OnlineSections";
+import type { Fear, Milestone, Story } from "@/components/site/OnlineSections";
 import { FAQ_BASE } from "@/lib/content";
-
-/** Słowo, które klient wpisuje w wiadomości na Instagramie. Po nim wiesz, że przyszedł z tej strony. */
-export const KEYWORD = "ONLINE";
 
 /**
  * Film VSL w hero. `videoId` to część linku YouTube po /shorts/ (albo po ?v=).
@@ -40,82 +37,69 @@ export const stories: Story[] = [
     name: "Maja",
     tag: "Pierwszy raz na siłowni",
     color: "emerald",
-    start: (
-      <>
-        Nigdy wcześniej nie była na siłowni.{" "}
-        <span className="text-white">„Najbardziej bałam się ludzi wokół (…) porównywania się do ludzi, którzy trenują o wiele, wiele dłużej niż ja.”</span>
-      </>
-    ),
-    journey: (
-      <>
-        Nie zaczęliśmy od sztangi:{" "}
-        <span className="text-white">„zaczynaliśmy od zwykłych przysiadów, potem robiliśmy goblet, dopiero potem robiliśmy przysiad faktycznie ze sztangą.”</span>{" "}
-        Kiedy siłownia była zamknięta, zrobiła trening w domu z hantlami 2 kg:{" "}
-        <span className="text-white">„lepiej zrobić cokolwiek, niż nie zrobić nic.”</span>
-      </>
-    ),
-    resultLabel: "Po 3 miesiącach",
-    result: <p className="text-2xl font-black text-white">Talia −6 cm</p>,
-    quote: "Wcześniej chodziłam taka przykurczona, teraz chodzę wyprostowana. Dzięki temu też plecy mnie nie bolą.",
+    startLabel: "Przyszła z",
+    start: "Chciała wzmocnić ciało do codziennych czynności. Problemy bólowe.",
+    obstacles: "Strach przed siłownią: nie wiedziała, jak ćwiczyć i czy się tam odnajdzie.",
+    when: "po 3 miesiącach",
+    headline: "Talia −6 cm",
+    rows: [
+      ["Martwy ciąg rumuński", "20 → 37,5 kg"],
+      ["Hip thrust", "0 → 45 kg"],
+      ["Waga", "−2 kg"],
+      ["Plecy", "nie bolą"],
+    ],
+    quote: "Wcześniej chodziłam taka przykurczona, teraz chodzę wyprostowana.",
   },
   {
     name: "Jeremi",
     tag: "Start od zera",
     color: "sky",
-    start: (
-      <>
-        Zaczynał od pytania:{" "}
-        <span className="text-white">„Jest jakaś metoda na oszacowanie tego? Żebym nie musiał na ślepo zgadywać, skąd powinienem zacząć?”</span>
-      </>
-    ),
-    journey: (
-      <>
-        Przyszedł okres, w którym wszystko zwaliło mu się na głowę naraz. Napisałem mu:{" "}
-        <span className="text-white">„Nie widzę sensu cię cisnąć i męczyć o robienie na siłę treningów, bo to tylko pogorszy aktualny młyn.”</span>{" "}
-        Dopasowaliśmy plan do jego życia, a nie odwrotnie. Nie odpadł.
-      </>
-    ),
-    resultLabel: "Po ok. 3,5 miesiąca",
-    result: (
-      <>
-        <p className="text-white/75">Podciąganie z pomocą maszyny:</p>
-        <ResultTable
-          rows={[
-            ["Start", "42,5 kg pomocy × 5"],
-            ["Rekord", "14 kg pomocy × 8"],
-          ]}
-        />
-      </>
-    ),
-    quote: "Wczoraj wyprzedzałem, cisnąłem mocniej, a tętno spadało mi do normy względnie szybko.",
-    quoteLead: "Rok później znowu był w górach:",
+    startLabel: "Przyszedł z",
+    start: "Estetyczna sylwetka (rekompozycja), poprawna technika, zdrowe nawyki.",
+    obstacles: "Łączenie studiów, pracy, treningu i życia prywatnego.",
+    when: "po 6 miesiącach",
+    headline: "Praca, doktorat, życie prywatne i trening. Pogodzone.",
+    rows: [
+      ["Podciąganie", "0 → 3"],
+      ["Wyciskanie leżąc", "25 → 40 kg"],
+      ["Martwy ciąg rumuński", "30 → 45 kg"],
+      ["Obwód barków", "+6 cm"],
+    ],
+    quote: "I tak jestem zadowolony, że w ogóle kontynuuję trenowanie.",
   },
   {
     name: "Katalin",
-    tag: "Siła i triathlon",
+    tag: "Siła i 1/8 Ironmana",
     color: "amber",
-    start: "Chciała mieć więcej siły i nauczyć się podciągać. Na początku problemem było samo opuszczenie się na drążku.",
-    journey: (
-      <>
-        Dużo na głowie i mało czasu. Kiedy tydzień był za ciężki, nic nie nadrabialiśmy. Napisałem jej:{" "}
-        <span className="text-white">„Niczego nie trzeba nadrabiać (…) po powrocie po prostu wracamy do regularności.”</span>
-      </>
-    ),
-    resultLabel: "Po pół roku",
-    result: (
-      <>
-        <ResultTable
-          rows={[
-            ["Martwy ciąg rumuński", "30 → 63 kg"],
-            ["Hip thrust", "40 → 68 kg"],
-            ["Przysiad", "12 → 35 kg"],
-          ]}
-        />
-        <p className="mt-3 text-white/75">Po drodze sama zapisała się na triathlon.</p>
-      </>
-    ),
-    quote: "Byłam ostatnia, ale ukończyłam.",
-    quoteLead: "Po zawodach napisała:",
+    startLabel: "Przyszła z",
+    start: "Budowa zdrowej, sprawnej i silnej sylwetki.",
+    obstacles: "Praca, rodzina, brak czasu i tendencja do zaniżania własnych osiągnięć.",
+    when: "po pół roku",
+    headline: "Martwy ciąg ×2",
+    rows: [
+      ["Martwy ciąg rumuński", "30 → 63 kg"],
+      ["Hip thrust", "40 → 68 kg"],
+      ["Przysiad", "12 → 37,5 kg"],
+      ["1/8 Ironmana", "ukończona"],
+    ],
+    quote: "Bywają takie dni i tygodnie. Nie ma spiny, są drugie terminy.",
+  },
+  {
+    name: "Szymon",
+    tag: "Powrót po kontuzji barku",
+    color: "violet",
+    startLabel: "Przyszedł z",
+    start: "Kontuzja barku, waga blisko setki.",
+    obstacles: "Bark wyklucza część ćwiczeń, zajęte lato.",
+    when: "po 2 miesiącach",
+    headline: "−2,5 kg",
+    rows: [
+      ["Martwy ciąg rumuński", "30 → 70 kg"],
+      ["Martwy ciąg (trap bar)", "40 → 70 kg"],
+      ["Hip thrust", "30 → 60 kg"],
+      ["Wyciskanie nad głowę", "bez bólu barku"],
+    ],
+    quote: "Myślałem, że poczuję bark, ale nie poczułem ani trochę.",
   },
 ];
 
@@ -127,11 +111,11 @@ export const phases = [
   },
   {
     title: "Rozumiesz",
-    text: "Do każdej decyzji dostajesz „dlaczego”. Co tydzień jedna krótka infografika zamiast stu stron teorii.",
+    text: "Co tydzień dostajesz proste infografiki, z których uczysz się fitnessu i rozumiesz, dlaczego podejmujemy takie, a nie inne decyzje.",
   },
   {
     title: "Decydujesz",
-    text: "Ciężar dobierasz bez zgadywania, lżejszy tydzień ustawiasz bez poczucia winy i wiesz, co zmienić, a czego nie ruszać.",
+    text: "Im dłużej pracujemy, tym większą masz świadomość podejmowanych decyzji. Celem końcowym współpracy jest doprowadzić Cię do miejsca, w którym nie potrzebujesz trenera.",
   },
 ];
 
@@ -217,12 +201,16 @@ export const beliefs = [
   "Masz rozumieć, co robisz, a nie potrzebować trenera do końca życia.",
 ];
 
-/** Zdanie pod przyciskiem DM w hero i przy cenie. */
-export const DM_NOTE = "Odpisuję w ciągu 24 godzin. Pierwsza rozmowa jest darmowa, nic Ci nie wcisnę.";
+/** Zdanie pod przyciskiem DM w hero. */
+export const DM_NOTE_HERO =
+  "Napisz do mnie na Instagramie, aby umówić się na darmową konsultację. Porozmawiamy o Twoim celu i problemach, zobaczysz, jak wygląda prowadzenie, i sprawdzisz, czy to coś dla Ciebie.";
+
+/** Zdanie pod przyciskiem DM przy cenie i na końcu strony. */
+export const DM_NOTE_QUESTIONS = "Masz dodatkowe pytania? Odezwij się na Instagramie, postaram się pomóc.";
 
 /** „Co się dzieje, gdy napiszesz”: 4 kroki. */
 export const afterMessage = [
-  { title: `Piszesz „${KEYWORD}” na Instagramie`, text: "Możesz od razu zapytać o cokolwiek. Nie musisz jeszcze nic decydować." },
+  { title: "Piszesz do mnie na Instagramie", text: "Możesz od razu zapytać o cokolwiek. Nie musisz jeszcze nic decydować." },
   { title: "Darmowa rozmowa, ok. 30 minut", text: "Bez opłat i bez zobowiązań. Głosowo albo z kamerką: Twój cel, co wcześniej nie wyszło, ile realnie masz czasu w tygodniu." },
   { title: "Plan startowy", text: "Zdjęcia i pomiary na punkt zero, jedzenie ustawione w aplikacji, plan na pierwsze treningi." },
   { title: "Pierwszy tydzień", text: "Technika na spokojnie, ok. 70% możliwości. Ciężar dokładamy potem." },
