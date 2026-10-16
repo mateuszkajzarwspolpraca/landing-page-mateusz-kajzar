@@ -190,14 +190,14 @@ export default function OnlinePage() {
             intro={<p>Zakres jest identyczny. Różni się tylko to, czy decydujesz raz, czy co miesiąc.</p>}
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr_1fr]">
-            <PriceCard badge="Polecam" title="Pełny proces: 3 miesiące" price="1100 zł" priceNote="za całość (ok. 367 zł miesięcznie)" highlighted>
+            <PriceCard badge="Polecam" title="Pełny proces: 3 miesiące" price="1200 zł" priceNote="za całość (ok. 367 zł miesięcznie)" highlighted>
               <p>
                 Tyle realnie zajmuje ogarnięcie podstaw. Płacisz raz i przez trzy miesiące nie zastanawiasz się, czy
                 kontynuować. Z mojego doświadczenia ludzie najczęściej odpadają właśnie na starcie albo po pierwszym miesiącu.
               </p>
-              <p className="text-white/50">100 zł mniej niż 3 × 400 zł.</p>
+              <p className="text-white/50">100 zł mniej niż 3 × 450 zł.</p>
             </PriceCard>
-            <PriceCard title="Miesiąc po miesiącu" price="400 zł" priceNote="/ miesiąc, bez zobowiązania">
+            <PriceCard title="Miesiąc po miesiącu" price="450 zł" priceNote="/ miesiąc, bez zobowiązania">
               <p>Chcesz najpierw sprawdzić, czy to działa? Zacznij od jednego miesiąca i zdecyduj, co dalej.</p>
             </PriceCard>
             <Card>
