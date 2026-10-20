@@ -2,7 +2,7 @@
  * Globalne style całej strony.
  *
  * Strona korzysta z Tailwinda: większość wyglądu ustawia się klasami prosto w komponentach
- * (np. className="text-white bg-black"). Tutaj są tylko rzeczy wspólne:
+ * (np. className="text-white bg-page"). Tutaj są tylko rzeczy wspólne:
  * kolory marki, czcionka i animacje.
  */
 
@@ -13,14 +13,23 @@
  * Np. --color-surface tworzy klasy bg-surface, border-surface, text-surface itd.
  */
 @theme {
-  /* Tło kart i kafelków. */
-  --color-surface: #111111;
-  /* Tło co drugiej sekcji (trochę jaśniejsze od czarnego), żeby sekcje się od siebie odcinały. */
-  --color-surface-dark: #0b0b0b;
+  /* ---- Kolory marki. Zmieniasz tutaj, a zmienia się na całej stronie. ---- */
+
+  /* Tło strony: grafit z infografik zamiast czystej czerni (mniej męczy oczy). Klasa: bg-page. */
+  --color-page: #121215;
+  /* Tło co drugiej sekcji, odrobinę ciemniejsze, żeby sekcje się od siebie odcinały. Klasa: bg-surface-dark. */
+  --color-surface-dark: #0d0d10;
+  /* Tło kart i kafelków. Klasa: bg-surface. */
+  --color-surface: #222227;
+
+  /* Bordowy z infografik: przyciski, kreski, wypełnienia. Klasy: bg-brand, border-brand, text-brand… */
+  --color-brand: #b82231;
+  /* Odrobinę jaśniejszy bordowy: małe napisy na ciemnym tle (żeby były czytelne) i podświetlenie przycisków. Klasy: text-brand-light… */
+  --color-brand-light: #d02c3d;
 
   /* Kolory, z których korzysta rozwijane FAQ (components/ui/accordion.tsx). */
   --color-border: rgb(255 255 255 / 0.1);
-  --color-ring: rgb(239 68 68);
+  --color-ring: #d02c3d;
   --color-foreground: #ffffff;
   --color-muted-foreground: rgb(255 255 255 / 0.6);
 
@@ -55,6 +64,8 @@
   html {
     /* Płynne przewijanie po kliknięciu w link z menu (np. #cena). */
     scroll-behavior: smooth;
+    /* Kolor tła przy „przeciągnięciu” strony poza krawędź na telefonie. */
+    background-color: var(--color-page);
     font-family: Helvetica, Arial, sans-serif;
   }
 

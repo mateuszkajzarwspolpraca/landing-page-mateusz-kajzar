@@ -63,10 +63,10 @@ export default function JaworznoPage() {
         <section className="px-4 pb-14 pt-8 sm:px-8 sm:pb-20 sm:pt-14">
           <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <div>
-              <p className="text-sm font-black uppercase tracking-[0.22em] text-red-500">Treningi personalne w Jaworznie</p>
+              <p className="text-sm font-black uppercase tracking-[0.22em] text-brand-light">Treningi personalne w Jaworznie</p>
               <h1 className="mt-4 text-[2.1rem] font-black leading-[1.05] sm:text-5xl lg:text-[3.4rem]">
                 Nie masz problemu z dyscypliną. Masz problem z planem, który zakładał, że{" "}
-                <span className="text-red-500">nic Ci się nie wydarzy.</span>
+                <span className="text-brand-light">nic Ci się nie wydarzy.</span>
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
                 Treningi na żywo w {GYM.name} w Jaworznie, a między nimi pełne prowadzenie online. Dla początkujących i
@@ -103,7 +103,7 @@ export default function JaworznoPage() {
               Nie zaczęliśmy od sztangi. „My sobie zaczynaliśmy od zwykłych przysiadów, potem robiliśmy goblet, dopiero
               potem robiliśmy przysiad faktycznie ze sztangą.”
             </p>
-            <p className="border-l-2 border-red-600 pl-4 text-xl font-black leading-8 text-white sm:text-2xl sm:leading-9">
+            <p className="border-l-2 border-brand pl-4 text-xl font-black leading-8 text-white sm:text-2xl sm:leading-9">
               „Wcześniej chodziłam taka przykurczona, teraz chodzę wyprostowana. Dzięki temu też plecy mnie nie bolą.”
             </p>
           </Prose>
@@ -115,7 +115,7 @@ export default function JaworznoPage() {
           <div className="mt-8 grid gap-3">
             {contrast.map((row) => (
               <div key={row.no} className="grid gap-2 rounded-lg border border-white/10 bg-surface/80 p-5 sm:grid-cols-2 sm:gap-6">
-                <p className="text-white/50 line-through decoration-red-600/70">{row.no}</p>
+                <p className="text-white/50 line-through decoration-brand/70">{row.no}</p>
                 <p className="font-bold text-white">{row.yes}</p>
               </div>
             ))}
@@ -160,7 +160,7 @@ export default function JaworznoPage() {
           <SectionHeading eyebrow="Gdzie" title={GYM.name} />
           <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
             <p className="flex items-start gap-3 text-lg text-white/85">
-              <MapPin className="mt-1 h-5 w-5 shrink-0 text-red-500" />
+              <MapPin className="mt-1 h-5 w-5 shrink-0 text-brand-light" />
               <span>
                 {GYM.street}
                 <br />
@@ -171,7 +171,7 @@ export default function JaworznoPage() {
               href={GYM.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg border border-white/20 px-5 py-3 text-sm font-bold text-white transition hover:border-red-500"
+              className="inline-flex items-center justify-center rounded-lg border border-white/20 px-5 py-3 text-sm font-bold text-white transition hover:border-brand-light"
             >
               Otwórz w Mapach Google
             </a>
@@ -186,8 +186,8 @@ export default function JaworznoPage() {
             intro={<GoogleRatingBadge />}
           />
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {[REVIEWS.stacjonarny, REVIEWS.krzysztof, REVIEWS.bartek].map((review) => (
-              <ReviewCard key={review.name + review.meta} review={review} />
+            {[REVIEWS.damian, REVIEWS.krzysztof, REVIEWS.bartek].map((review) => (
+              <ReviewCard key={review.name} review={review} />
             ))}
           </div>
         </Section>

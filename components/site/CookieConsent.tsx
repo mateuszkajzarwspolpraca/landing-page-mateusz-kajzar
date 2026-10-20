@@ -57,7 +57,7 @@ export function CookieConsent() {
       <p className="mt-2 text-sm leading-6 text-white/75">
         Poza niezbędnymi używam tylko narzędzi do mierzenia, czy strona i reklamy działają. Nie włączam ich, dopóki nie klikniesz
         „Akceptuję”.{" "}
-        <Link href="/polityka-prywatnosci#cookies" className="text-red-500 underline underline-offset-4">
+        <Link href="/polityka-prywatnosci#cookies" className="text-brand-light underline underline-offset-4">
           Szczegóły
         </Link>
       </p>
@@ -72,7 +72,7 @@ export function CookieConsent() {
         <button
           type="button"
           onClick={() => choose("granted")}
-          className="rounded-md bg-red-600 px-4 py-2.5 text-sm font-black text-white transition hover:bg-red-500"
+          className="rounded-md bg-brand px-4 py-2.5 text-sm font-black text-white transition hover:bg-brand-light"
         >
           Akceptuję
         </button>

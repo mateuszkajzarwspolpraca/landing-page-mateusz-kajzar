@@ -97,8 +97,8 @@ export function StoryCard({ story }: { story: Story }) {
   );
 }
 
-/** Tabelka wyników: [co, wynik] w wierszach, np. „Hip thrust · 0 → 45 kg”. */
-export function ResultTable({ rows }: { rows: [string, string][] }) {
+/** Tabelka wyników w karcie historii: [co, wynik] w wierszach, np. „Hip thrust · 0 → 45 kg”. */
+function ResultTable({ rows }: { rows: [string, string][] }) {
   return (
     <table className="w-full text-left text-sm">
       <tbody className="divide-y divide-white/10">
@@ -118,21 +118,38 @@ export function ResultTable({ rows }: { rows: [string, string][] }) {
 /** Jedna obawa klienta (`fear`) i odpowiedź, jak wygląda to u Mateusza (`answer`). */
 export type Fear = { fear: string; answer: ReactNode };
 
-/** Karta obawy w karuzeli „Czego u mnie nie dostaniesz”. `index` służy do numeru 01, 02… */
+/**
+ * Karta obawy w karuzeli „Czego u mnie nie dostaniesz”. `index` służy do numeru 01, 02…
+ * Kolory się przeplatają: parzyste karty grafitowe, nieparzyste bordowe. Dzięki temu
+ * sąsiednie karty wyraźnie się od siebie odróżniają i widać, że to osobne „slajdy”.
+ */
 export function FearCard({ fear, index }: { fear: Fear; index: number }) {
+  const isBrand = index % 2 === 1;
   return (
-    <article className="flex h-full flex-col rounded-lg border border-white/10 bg-surface p-5 sm:p-6">
+    <article
+      className={cn(
+        "flex h-full flex-col rounded-lg border p-5 sm:p-6",
+        isBrand ? "border-brand bg-brand" : "border-white/10 bg-surface"
+      )}
+    >
       <div className="flex items-center justify-between">
-        <span className="text-sm font-black text-white/35">{String(index + 1).padStart(2, "0")}</span>
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600/15 text-red-500">
+        <span className={cn("text-sm font-black", isBrand ? "text-white/60" : "text-white/35")}>
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <span
+          className={cn(
+            "flex h-8 w-8 items-center justify-center rounded-full",
+            isBrand ? "bg-white/15 text-white" : "bg-brand/15 text-brand-light"
+          )}
+        >
           <X className="h-4 w-4" />
         </span>
       </div>
-      <p className="mt-4 text-xs font-black uppercase tracking-[0.18em] text-white/40">Obawa</p>
-      <p className="mt-2 text-xl font-black leading-7 text-white/90 sm:text-2xl sm:leading-8">{fear.fear}</p>
-      <div className="mt-5 h-px bg-white/10" />
-      <p className="mt-5 text-xs font-black uppercase tracking-[0.18em] text-red-500">U mnie</p>
-      <div className="mt-2 text-base leading-7 text-white/85">{fear.answer}</div>
+      <p className={cn("mt-4 text-xs font-black uppercase tracking-[0.18em]", isBrand ? "text-white/60" : "text-white/40")}>Obawa</p>
+      <p className="mt-2 text-xl font-black leading-7 text-white sm:text-2xl sm:leading-8">{fear.fear}</p>
+      <div className={cn("mt-5 h-px", isBrand ? "bg-white/25" : "bg-white/10")} />
+      <p className={cn("mt-5 text-xs font-black uppercase tracking-[0.18em]", isBrand ? "text-white" : "text-brand-light")}>U mnie</p>
+      <div className={cn("mt-2 text-base leading-7", isBrand ? "text-white" : "text-white/85")}>{fear.answer}</div>
     </article>
   );
 }
@@ -146,7 +163,7 @@ export function PhaseCards({ phases }: { phases: { title: string; text: string }
       {phases.map((phase, index) => (
         <li key={phase.title} className="relative rounded-lg border border-white/10 bg-surface p-5 sm:p-6">
           <div className="flex items-baseline gap-3">
-            <span className="text-4xl font-black text-red-500">{index + 1}</span>
+            <span className="text-4xl font-black text-brand-light">{index + 1}</span>
             <p className="text-2xl font-black text-white">{phase.title}</p>
           </div>
           <p className="mt-3 text-sm leading-6 text-white/75 sm:text-base sm:leading-7">{phase.text}</p>
@@ -172,17 +189,17 @@ export function Roadmap({ milestones }: { milestones: Milestone[] }) {
         <li key={m.when} className="relative lg:pr-4">
           {/* pasek postępu: na komputerze jedna linia przez wszystkie etapy */}
           <div className="mb-4 hidden items-center lg:flex" aria-hidden="true">
-            <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-600 text-sm font-black text-white">
+            <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-black text-white">
               {index + 1}
             </span>
-            {index < milestones.length - 1 && <span className="h-0.5 flex-1 bg-gradient-to-r from-red-600 to-red-600/30" />}
+            {index < milestones.length - 1 && <span className="h-0.5 flex-1 bg-gradient-to-r from-brand to-brand/30" />}
           </div>
           <div className="h-full rounded-lg border border-white/10 bg-surface p-5">
             <div className="flex items-center gap-3 lg:block">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-600 text-sm font-black text-white lg:hidden">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-black text-white lg:hidden">
                 {index + 1}
               </span>
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-red-500">{m.when}</p>
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-brand-light">{m.when}</p>
             </div>
             <p className="mt-3 text-lg font-black leading-snug text-white">{m.title}</p>
             <p className="mt-2 text-sm leading-6 text-white/70">{m.text}</p>
@@ -193,11 +210,11 @@ export function Roadmap({ milestones }: { milestones: Milestone[] }) {
   );
 }
 
-/** Wyróżnione zdanie bez wcięcia: krótka czerwona kreska nad tekstem. */
+/** Wyróżnione zdanie bez wcięcia: krótka bordowa kreska nad tekstem. */
 export function Highlight({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <p className={cn("text-xl font-black leading-snug text-white sm:text-2xl", className)}>
-      <span aria-hidden="true" className="mb-3 block h-0.5 w-10 bg-red-600" />
+      <span aria-hidden="true" className="mb-3 block h-0.5 w-10 bg-brand" />
       {children}
     </p>
   );

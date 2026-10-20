@@ -53,6 +53,7 @@ components/
     Cards.tsx                 Karty: opinia, cennik, kroki, lista z ptaszkami, ocena Google.
     OnlineSections.tsx        Karty tylko dla /online: historie, obawy, etapy, roadmapa.
     SwipeCarousel.tsx         Zapętlona karuzela do przesuwania palcem.
+    ReviewWall.tsx            Ściana opinii z przyciskiem „Zobacz więcej opinii” (/online).
     VideoEmbed.tsx            Film z YouTube wczytywany dopiero po kliknięciu (VSL na /online).
     DmButton.tsx              Przyciski „Napisz do mnie na Instagramie”.
     StickyDm.tsx              Przycisk DM przyklejony do dołu ekranu (telefon).
@@ -86,7 +87,9 @@ public/images/                Zdjęcia i logo (adres w kodzie zaczyna się od /i
 | Opinie z Google | `lib/content.ts` (`REVIEWS`), wybór i kolejność w `page.tsx` danej strony |
 | Pytania FAQ | wspólne w `lib/content.ts` (`FAQ_BASE`), lista dla strony w jej `content.tsx` |
 | Instagram, e-mail, ocena Google, adres siłowni | `lib/site.ts` |
-| Kolory tła kart i sekcji | `app/globals.css` (`--color-surface`, `--color-surface-dark`) |
+| Kolory strony (tła, karty, bordowy) | `app/globals.css`, na górze: `--color-page`, `--color-surface-dark`, `--color-surface`, `--color-brand`, `--color-brand-light` |
+| Podpis pod imieniem i przycisk Instagrama w górnym pasku | `components/site/SiteHeader.tsx` |
+| Historie podopiecznych, obawy, roadmapa | `app/online/content.tsx` (`stories`, `fears`, `roadmap`) |
 | Film VSL (link, zdjęcie przed kliknięciem) | `VSL` w `app/online/content.tsx` |
 | Tytuł i opis w Google | `metadata` w `page.tsx` danej strony, domyślne w `app/layout.tsx` |
 
@@ -104,6 +107,3 @@ public/images/                Zdjęcia i logo (adres w kodzie zaczyna się od /i
   Żeby widzieć rozbicie na przyciski, w GA4 utwórz wymiar niestandardowy: Administracja → Niestandardowe definicje → parametr `dm_source`.
 - Włączenie filmu VSL wysyła zdarzenie `video_play` (pole `video_id`).
 
-## Do uzupełnienia
-
-- `GOOGLE_REVIEWS_URL` w `lib/site.ts`: link do opinii Google (wtedy ocena na stronie stanie się klikalna).

@@ -8,6 +8,7 @@ import type { Review } from "@/components/site/Cards";
 
 /**
  * Opinie podopiecznych, przepisane dosłownie z Google (łącznie z literówkami i emotkami).
+ * Imiona albo nicki takie jak w Google. `meta` i `text` są opcjonalne (część opinii to same gwiazdki).
  * Nie przeredagowywać: to cytaty. Kolejność i wybór opinii ustala każda podstrona.
  */
 export const REVIEWS = {
@@ -31,11 +32,19 @@ export const REVIEWS = {
     meta: "Prowadzenie online",
     text: "Bardzo polecam współpracę! Plan treningowy zawsze dopasowany pode mnie i jasno rozpisany, więc wiadomo co i jak robić. Duży plus za analizę techniki, dostaję konkretne wskazówki i faktycznie widać progres. Wszystko tłumaczone na luzie i zrozumiale, bez zbędnego komplikowania. Do tego świetny kontakt i zaangażowanie.",
   },
-  stacjonarny: {
-    name: "Podopieczny",
+  damian: {
+    name: "Damian",
     meta: "Trening stacjonarny",
-    text: "Bardzo polecam współpracę!!! Z całego serca polecam współpracę z Mateuszem! 💪 Dzięki jego wiedzy, zaangażowaniu i profesjonalnemu podejściu wróciłem na siłownię po bardzo trudnym okresie. Mateusz jest sumiennym, rzetelnym i cierpliwym trenerem, który potrafi świetnie zmotywować i indywidualnie podchodzi do każdej osoby.",
+    text: "Z całego serca polecam współpracę z Mateuszem! 💪 Dzięki jego wiedzy, zaangażowaniu i profesjonalnemu podejściu wróciłem na siłownię po bardzo trudnym okresie – amputacji nogi powyżej kolana. Mateusz jest sumiennym, rzetelnym i cierpliwym trenerem, który potrafi świetnie zmotywować i indywidualnie podchodzi do każdej osoby. Dziękuję za wsparcie i motywację. Z czystym sumieniem polecam! 💪💪💪",
   },
+  gaxba: {
+    name: "gaxba aa",
+    text: "Bardzo polecam współpracę!!!",
+  },
+  // Opinie bez treści (same 5 gwiazdek)
+  jeremi: { name: "Jeremi", meta: "Prowadzenie online" },
+  dorota: { name: "Dorota" },
+  eryk: { name: "Eryk" },
 } satisfies Record<string, Review>;
 
 /**

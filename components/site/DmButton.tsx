@@ -30,7 +30,7 @@ export function DmButton({ source, label = "Napisz do mnie na Instagramie", clas
       rel="noopener noreferrer"
       onClick={() => trackEvent("dm_click", { dm_source: source })}
       className={cn(
-        "group inline-flex w-full items-center justify-center gap-3 rounded-lg bg-red-600 px-6 py-4 text-base font-black text-white shadow-[0_18px_60px_rgba(236,31,39,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-red-500 sm:w-auto sm:min-w-[320px]",
+        "group inline-flex w-full items-center justify-center gap-3 rounded-lg bg-brand px-6 py-4 text-base font-black text-white shadow-[0_18px_60px_rgba(184,34,49,0.28)] transition duration-300 hover:-translate-y-0.5 hover:bg-brand-light sm:w-auto sm:min-w-[320px]",
         className
       )}
     >

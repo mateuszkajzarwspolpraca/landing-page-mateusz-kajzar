@@ -1,7 +1,8 @@
 /**
  * Teksty strony /online (prowadzenie online).
  *
- * Tu są wszystkie listy i dłuższe treści: historie, etapy, obawy, cennik, FAQ itd.
+ * Tu są wszystkie listy i dłuższe treści: film VSL, historie, etapy, roadmapa, obawy, lista „w cenie”, kroki „co dalej”, „W co wierzę” i FAQ.
+ * Same ceny (1200 zł / 450 zł) i krótkie akapity sekcji są w page.tsx, w sekcji „Oferta”.
  * Chcesz zmienić tekst na stronie? Najpierw szukaj tutaj. Układ i kolejność sekcji są w page.tsx.
  *
  * Plik ma rozszerzenie .tsx, bo część tekstów zawiera JSX (np. pogrubienia albo link w odpowiedzi FAQ).
@@ -154,6 +155,11 @@ export const fears: Fear[] = [
     answer: "Do każdego ćwiczenia film. Ty nagrywasz serię, ja mówię, co poprawić. Niejasny film nagrywam od nowa, czasem pięć razy.",
   },
   {
+    fear: "„Przez złą technikę zrobię sobie krzywdę.”",
+    answer:
+      "Technikę analizujemy regularnie na Twoich nagraniach i poprawiamy na bieżąco. Ciężar dokładamy dopiero wtedy, gdy ruch jest pewny, a jeśli coś boli, zamieniamy ćwiczenie na bezpieczniejsze.",
+  },
+  {
     fear: "„Znowu usłyszę, że to moja wina.”",
     answer: "Gorszy tydzień to nie wina. Patrzymy na to neutralnie, szukamy przyczyny i dopasowujemy plan do Twojego życia, a nie odwrotnie.",
   },
@@ -243,7 +249,7 @@ export const faq: FaqItem[] = [
     a: (
       <>
         Nie. Jeśli jesteś z Jaworzna albo okolic, możemy trenować też na żywo. Szczegóły:{" "}
-        <Link href="/jaworzno" className="font-bold text-red-500 underline underline-offset-4">
+        <Link href="/jaworzno" className="font-bold text-brand-light underline underline-offset-4">
           Współpraca Jaworzno →
         </Link>
       </>

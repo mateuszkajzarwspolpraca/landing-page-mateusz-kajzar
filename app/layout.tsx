@@ -58,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl" className="antialiased">
-      <body className="flex min-h-full flex-col bg-black text-white">
+      <body className="flex min-h-full flex-col bg-page text-white">
         {/* Ekran ładowania z logo */}
         <PageLoader />
         {/* Statystyki: ładują się dopiero po zgodzie na cookies */}

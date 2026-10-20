@@ -13,32 +13,52 @@ export function Card({ children, className }: { children: ReactNode; className?:
   return <div className={cn("rounded-lg border border-white/10 bg-surface/80 p-5 sm:p-6", className)}>{children}</div>;
 }
 
-/** Jedna opinia: imię, krótki opis (np. „Redukcja”) i treść. */
-export type Review = { name: string; meta: string; text: string };
+/** Jedna opinia: imię lub nick z Google, opcjonalny krótki opis (np. „Redukcja”) i opcjonalna treść. */
+export type Review = { name: string; meta?: string; text?: string };
 
-/** Karta opinii z pięcioma gwiazdkami. */
+/**
+ * Karta opinii: kółko z inicjałem, imię i opis, treść opinii, a na dole gwiazdki i „Opinia z Google”.
+ * Używana w ścianie opinii na /online (ReviewWall) i w siatce opinii na /jaworzno.
+ */
 export function ReviewCard({ review }: { review: Review }) {
   return (
     <Card className="flex h-full flex-col">
-      <div className="flex gap-1 text-red-500" aria-label="5 na 5 gwiazdek">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <Star key={index} className="h-4 w-4 fill-red-500" />
-        ))}
-      </div>
-      <blockquote className="mt-4 flex-1 text-sm leading-6 text-white/80 sm:text-base sm:leading-7">„{review.text}”</blockquote>
-      <p className="mt-5 font-black text-white">{review.name}</p>
-      <p className="text-sm text-white/50">{review.meta}</p>
+      <header className="flex items-center gap-3">
+        <span
+          aria-hidden="true"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-base font-black text-white"
+        >
+          {review.name.charAt(0).toUpperCase()}
+        </span>
+        <div>
+          <p className="font-black leading-tight text-white">{review.name}</p>
+          {review.meta && (
+            <p className="mt-0.5 text-xs font-bold uppercase tracking-[0.14em] text-brand-light">{review.meta}</p>
+          )}
+        </div>
+      </header>
+      {review.text && (
+        <blockquote className="mt-4 flex-1 text-sm leading-6 text-white/80 sm:text-base sm:leading-7">„{review.text}”</blockquote>
+      )}
+      <footer className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
+        <div className="flex gap-1 text-brand-light" aria-label="5 na 5 gwiazdek">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <Star key={index} className="h-4 w-4 fill-brand-light" />
+          ))}
+        </div>
+        <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/45">Opinia z Google</span>
+      </footer>
     </Card>
   );
 }
 
-/** Lista punktów z czerwonym ptaszkiem, np. „W obu wariantach: …”. */
+/** Lista punktów z bordowym ptaszkiem, np. „W obu wariantach: …”. */
 export function CheckList({ items }: { items: string[] }) {
   return (
     <ul className="space-y-3">
       {items.map((item) => (
         <li key={item} className="flex gap-3 text-sm leading-6 text-white/85 sm:text-base">
-          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-red-500 text-red-500">
+          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-brand-light text-brand-light">
             <Check className="h-3 w-3" />
           </span>
           {item}
@@ -49,7 +69,7 @@ export function CheckList({ items }: { items: string[] }) {
 }
 
 type PriceCardProps = {
-  /** Czerwona plakietka nad kartą, np. „Polecam”. Opcjonalna. */
+  /** Bordowa plakietka nad kartą, np. „Polecam”. Opcjonalna. */
   badge?: string;
   title: string;
   /** Cena dużymi cyframi, np. „400 zł”. */
@@ -58,16 +78,16 @@ type PriceCardProps = {
   priceNote: string;
   /** Dodatkowy opis pod ceną. Opcjonalny. */
   children?: ReactNode;
-  /** true = czerwona ramka i poświata (wariant polecany). */
+  /** true = bordowa ramka i poświata (wariant polecany). */
   highlighted?: boolean;
 };
 
 /** Karta jednego wariantu cennika. */
 export function PriceCard({ badge, title, price, priceNote, children, highlighted }: PriceCardProps) {
   return (
-    <Card className={cn("relative flex h-full flex-col", highlighted && "border-red-500/70 shadow-[0_0_60px_rgba(239,35,42,0.15)]")}>
+    <Card className={cn("relative flex h-full flex-col", highlighted && "border-brand-light/70 shadow-[0_0_60px_rgba(184,34,49,0.15)]")}>
       {badge && (
-        <span className="absolute -top-3 left-5 rounded-full bg-red-600 px-3 py-1 text-xs font-black uppercase tracking-wider text-white">
+        <span className="absolute -top-3 left-5 rounded-full bg-brand px-3 py-1 text-xs font-black uppercase tracking-wider text-white">
           {badge}
         </span>
       )}
@@ -86,7 +106,7 @@ export function Steps({ steps }: { steps: { title: string; text: ReactNode }[] }
       {steps.map((step, index) => (
         <li key={step.title}>
           <Card className="h-full">
-            <p className="text-3xl font-black text-red-500">{String(index + 1).padStart(2, "0")}</p>
+            <p className="text-3xl font-black text-brand-light">{String(index + 1).padStart(2, "0")}</p>
             <p className="mt-3 text-lg font-black text-white">{step.title}</p>
             <div className="mt-2 text-sm leading-6 text-white/70 sm:text-base">{step.text}</div>
           </Card>

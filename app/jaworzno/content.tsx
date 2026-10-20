@@ -63,7 +63,7 @@ export const faq: FaqItem[] = [
     a: (
       <>
         Tak. Prowadzenie online działa z każdego miejsca w Polsce. Szczegóły:{" "}
-        <Link href="/online" className="font-bold text-red-500 underline underline-offset-4">
+        <Link href="/online" className="font-bold text-brand-light underline underline-offset-4">
           Współpraca online →
         </Link>
       </>

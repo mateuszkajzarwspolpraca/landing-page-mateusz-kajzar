@@ -19,7 +19,7 @@ export default function PolitykaPrywatnosciPage() {
       title={
         <>
           Polityka prywatności
-          <span className="block text-red-500">i ochrona danych</span>
+          <span className="block text-brand-light">i ochrona danych</span>
         </>
       }
       updated="13 października 2026 r."

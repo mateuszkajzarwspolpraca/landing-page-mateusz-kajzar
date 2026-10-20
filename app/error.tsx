@@ -20,13 +20,13 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
   }, [error]);
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-black px-5 text-white">
-      <div className="w-full max-w-xl rounded-lg border border-red-500/30 bg-surface/80 p-6 text-center shadow-[0_0_80px_rgba(239,35,42,0.12)] backdrop-blur">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-red-500/30 bg-red-600/10 text-red-500">
+    <main className="flex min-h-screen items-center justify-center bg-page px-5 text-white">
+      <div className="w-full max-w-xl rounded-lg border border-brand-light/30 bg-surface/80 p-6 text-center shadow-[0_0_80px_rgba(184,34,49,0.12)] backdrop-blur">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-brand-light/30 bg-brand/10 text-brand-light">
           <AlertTriangle className="h-8 w-8" />
         </div>
 
-        <p className="mt-6 text-sm font-black uppercase tracking-[0.22em] text-red-500">
+        <p className="mt-6 text-sm font-black uppercase tracking-[0.22em] text-brand-light">
           Coś poszło nie tak
         </p>
 
@@ -43,7 +43,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
           <button
             type="button"
             onClick={reset}
-            className="inline-flex items-center justify-center gap-3 rounded-md bg-red-600 px-5 py-3 text-sm font-black transition hover:bg-red-500"
+            className="inline-flex items-center justify-center gap-3 rounded-md bg-brand px-5 py-3 text-sm font-black transition hover:bg-brand-light"
           >
             Spróbuj ponownie
             <RefreshCw className="h-4 w-4" />
@@ -51,7 +51,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
 
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-3 rounded-md border border-red-600 bg-black/20 px-5 py-3 text-sm font-black transition hover:bg-red-600"
+            className="inline-flex items-center justify-center gap-3 rounded-md border border-brand bg-page/20 px-5 py-3 text-sm font-black transition hover:bg-brand"
           >
             Wróć na stronę główną
             <ArrowLeft className="h-4 w-4" />

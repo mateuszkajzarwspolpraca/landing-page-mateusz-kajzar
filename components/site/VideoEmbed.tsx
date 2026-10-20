@@ -55,7 +55,7 @@ export function VideoEmbed({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-lg border border-white/10 bg-black",
+        "relative overflow-hidden rounded-lg border border-white/10 bg-page",
         orientation === "vertical" ? "aspect-[9/16]" : "aspect-video",
         className
       )}
@@ -74,7 +74,7 @@ export function VideoEmbed({
           {/* Przyciemnienie od dołu, żeby napis był czytelny */}
           <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/10" />
           {/* Okrągły przycisk play na środku */}
-          <span className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-red-600 shadow-[0_0_60px_rgba(239,35,42,0.55)] transition duration-300 group-hover:scale-110">
+          <span className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand shadow-[0_0_60px_rgba(184,34,49,0.55)] transition duration-300 group-hover:scale-110">
             <Play className="ml-1 h-9 w-9 fill-white text-white" />
           </span>
           <span className="absolute inset-x-0 bottom-0 p-5">

@@ -7,8 +7,10 @@ type SwipeCarouselProps = {
   children: ReactNode;
   /** Etykieta dla czytników ekranu, np. „Historie podopiecznych”. */
   label: string;
-  /** Szerokość jednej karty (klasy Tailwind). */
+  /** Szerokość jednej karty (klasy Tailwinda). */
   itemClassName?: string;
+  /** true = kropki nad kartami (jak na Instagramie). Podpowiadają, że kart jest więcej i można przesuwać. */
+  dots?: boolean;
 };
 
 /** Po tylu ms bez ruchu uznajemy, że przewijanie się skończyło. */
@@ -21,7 +23,7 @@ const SCROLL_END_MS = 140;
  * w środkowym zestawie. Przesuwanie palcem (scroll-snap), kliknięcie w boczną kartę albo strzałki
  * na klawiaturze. Bez zewnętrznych bibliotek.
  */
-export function SwipeCarousel({ children, label, itemClassName = "w-[76vw] max-w-[440px]" }: SwipeCarouselProps) {
+export function SwipeCarousel({ children, label, itemClassName = "w-[76vw] max-w-[440px]", dots = false }: SwipeCarouselProps) {
   const items = Children.toArray(children); // karty przekazane do karuzeli
   const count = items.length;
   const loop = count > 1; // przy jednej karcie nie ma czego zapętlać
@@ -135,13 +137,43 @@ export function SwipeCarousel({ children, label, itemClassName = "w-[76vw] max-w
   /** Numer prawdziwej karty (0…count-1), niezależnie od tego, czy na środku jest kopia. */
   const logicalActive = loop ? active % count : active;
 
+  /** Kliknięcie w kropkę: przewija do tej karty, wybierając najbliższą kopię (żeby nie „przelatywać” przez pół karuzeli). */
+  const goToLogical = (target: number) => {
+    if (!loop) return scrollToIndex(target, "smooth");
+    const candidates = [target, target + count, target + count * 2];
+    const nearest = candidates.reduce((best, c) => (Math.abs(c - activeRef.current) < Math.abs(best - activeRef.current) ? c : best));
+    scrollToIndex(nearest, "smooth");
+  };
+
   return (
     <div role="region" aria-roledescription="karuzela" aria-label={label} className="-mx-4 sm:-mx-8 lg:mx-0">
+      {/* Kropki nad kartami: aktywna jest bordowa i dłuższa */}
+      {dots && count > 1 && (
+        <div className="flex justify-center gap-2 px-4 pb-2">
+          {items.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              aria-label={`Pokaż kartę ${index + 1} z ${count}`}
+              aria-current={index === logicalActive || undefined}
+              onClick={() => goToLogical(index)}
+              className="flex h-6 items-center"
+            >
+              <span
+                className={cn(
+                  "block h-2 rounded-full transition-all duration-300",
+                  index === logicalActive ? "w-6 bg-brand" : "w-2 bg-white/25 hover:bg-white/45"
+                )}
+              />
+            </button>
+          ))}
+        </div>
+      )}
       <div
         ref={trackRef}
         tabIndex={0}
         onKeyDown={onKeyDown}
-        className="relative flex snap-x snap-mandatory items-center gap-2 overflow-x-auto py-4 outline-none [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-red-500/60 sm:gap-5 lg:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [&::-webkit-scrollbar]:hidden"
+        className="relative flex snap-x snap-mandatory items-center gap-2 overflow-x-auto py-4 outline-none [scrollbar-width:none] focus-visible:ring-2 focus-visible:ring-brand-light/60 sm:gap-5 lg:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [&::-webkit-scrollbar]:hidden"
       >
         {slides.map((child, index) => {
           const isActive = index === active;

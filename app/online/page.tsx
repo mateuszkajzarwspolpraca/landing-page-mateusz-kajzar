@@ -6,10 +6,11 @@
  */
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Card, CheckList, GoogleRatingBadge, PriceCard, ReviewCard, Steps } from "@/components/site/Cards";
+import { Card, CheckList, GoogleRatingBadge, PriceCard, Steps } from "@/components/site/Cards";
 import { DmBlock } from "@/components/site/DmButton";
 import { Faq } from "@/components/site/Faq";
 import { FearCard, Highlight, PhaseCards, Roadmap, StoryCard } from "@/components/site/OnlineSections";
+import { ReviewWall } from "@/components/site/ReviewWall";
 import { Prose, Section, SectionHeading } from "@/components/site/Section";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
@@ -43,7 +44,17 @@ export const metadata: Metadata = {
 };
 
 /** Opinie w karuzeli, w tej kolejności. */
-const reviews = [REVIEWS.krzysztof, REVIEWS.bartek, REVIEWS.katalin, REVIEWS.dominik, REVIEWS.stacjonarny];
+const reviews = [
+  REVIEWS.krzysztof,
+  REVIEWS.bartek,
+  REVIEWS.katalin,
+  REVIEWS.dominik,
+  REVIEWS.damian,
+  REVIEWS.gaxba,
+  REVIEWS.jeremi,
+  REVIEWS.dorota,
+  REVIEWS.eryk,
+];
 
 export default function OnlinePage() {
   return (
@@ -54,9 +65,9 @@ export default function OnlinePage() {
         <section className="px-4 pb-14 pt-8 sm:px-8 sm:pb-20 sm:pt-14">
           <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <div>
-              <p className="text-sm font-black uppercase tracking-[0.22em] text-red-500">Prowadzenie online</p>
+              <p className="text-sm font-black uppercase tracking-[0.22em] text-brand-light">Prowadzenie online</p>
               <h1 className="mt-4 text-[2.1rem] font-black leading-[1.12] sm:text-5xl sm:leading-[1.08] lg:text-[3.6rem]">
-                Regularny trening bez skrajnych diet i bez słuchania, że to <span className="text-red-500">Twoja wina.</span>
+                Regularny trening bez skrajnych diet i bez słuchania, że to <span className="text-brand-light">Twoja wina.</span>
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
                 Pierwszy raz czy kolejne podejście, zaczynamy od podstaw. Zobacz, jak to robimy, nawet jeśli poprzednie
@@ -139,7 +150,7 @@ export default function OnlinePage() {
           <PhaseCards phases={phases} />
 
           <div className="mt-14 sm:mt-20">
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-red-500">Roadmapa</p>
+            <p className="text-sm font-black uppercase tracking-[0.22em] text-brand-light">Roadmapa</p>
             <h3 className="mt-3 text-2xl font-black leading-tight text-white sm:text-3xl">Twoje pierwsze 3 miesiące</h3>
             <Roadmap milestones={roadmap} />
           </div>
@@ -161,7 +172,7 @@ export default function OnlinePage() {
             }
           />
           <div className="mt-8">
-            <SwipeCarousel label="Obawy przed prowadzeniem online">
+            <SwipeCarousel label="Obawy przed prowadzeniem online" dots>
               {fears.map((fear, index) => (
                 <FearCard key={fear.fear} fear={fear} index={index} />
               ))}
@@ -190,12 +201,12 @@ export default function OnlinePage() {
             intro={<p>Zakres jest identyczny. Różni się tylko to, czy decydujesz raz, czy co miesiąc.</p>}
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr_1fr]">
-            <PriceCard badge="Polecam" title="Pełny proces: 3 miesiące" price="1200 zł" priceNote="za całość (ok. 367 zł miesięcznie)" highlighted>
+            <PriceCard badge="Polecam" title="Pełny proces: 3 miesiące" price="1200 zł" priceNote="za całość (400 zł miesięcznie)" highlighted>
               <p>
                 Tyle realnie zajmuje ogarnięcie podstaw. Płacisz raz i przez trzy miesiące nie zastanawiasz się, czy
                 kontynuować. Z mojego doświadczenia ludzie najczęściej odpadają właśnie na starcie albo po pierwszym miesiącu.
               </p>
-              <p className="text-white/50">100 zł mniej niż 3 × 450 zł.</p>
+              <p className="text-white/50">150 zł mniej niż 3 × 450 zł.</p>
             </PriceCard>
             <PriceCard title="Miesiąc po miesiącu" price="450 zł" priceNote="/ miesiąc, bez zobowiązania">
               <p>Chcesz najpierw sprawdzić, czy to działa? Zacznij od jednego miesiąca i zdecyduj, co dalej.</p>
@@ -225,12 +236,8 @@ export default function OnlinePage() {
             title="Co mówią podopieczni"
             intro={<GoogleRatingBadge />}
           />
-          <div className="mt-6">
-            <SwipeCarousel label="Opinie podopiecznych">
-              {reviews.map((review) => (
-                <ReviewCard key={review.name + review.meta} review={review} />
-              ))}
-            </SwipeCarousel>
+          <div className="mt-8">
+            <ReviewWall reviews={reviews} />
           </div>
         </Section>
 
@@ -271,7 +278,7 @@ export default function OnlinePage() {
                   życie, tylko pod Twoje, i korzystam ze sposobów, które w takim życiu naprawdę działają.
                 </p>
               </Prose>
-              <p className="mt-8 text-xs font-black uppercase tracking-[0.18em] text-red-500">W co wierzę</p>
+              <p className="mt-8 text-xs font-black uppercase tracking-[0.18em] text-brand-light">W co wierzę</p>
               <ul className="mt-4 space-y-3">
                 {beliefs.map((belief) => (
                   <li key={belief} className="rounded-md bg-white/[0.04] p-4 text-base font-bold leading-7 text-white">

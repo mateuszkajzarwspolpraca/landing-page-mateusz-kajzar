@@ -50,7 +50,7 @@ export function PageLoader() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-page">
       <div className="flex flex-col items-center gap-6">
         <Image
           src="/images/logo/logo.PNG"
@@ -63,7 +63,7 @@ export function PageLoader() {
 
         {/* Pasek, który przesuwa się w kółko (animacja „loader” w app/globals.css). */}
         <div className="h-1 w-40 overflow-hidden rounded-full bg-white/10">
-          <div className="h-full w-1/2 animate-[loader_1s_ease-in-out_infinite] rounded-full bg-red-600" />
+          <div className="h-full w-1/2 animate-[loader_1s_ease-in-out_infinite] rounded-full bg-brand" />
         </div>
 
         <p className="text-xs font-black uppercase tracking-[0.28em] text-white/70">Proste zasady. Widoczne efekty.</p>

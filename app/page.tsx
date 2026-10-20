@@ -47,10 +47,10 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
 
           <div className="relative mx-auto w-full max-w-4xl text-center">
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-red-500">Mateusz Kajzar · trener personalny</p>
+            <p className="text-sm font-black uppercase tracking-[0.22em] text-brand-light">Mateusz Kajzar · trener personalny</p>
             <h1 className="mt-4 text-4xl font-black uppercase leading-[1] sm:text-6xl">
               Proste zasady.
-              <span className="block text-red-500">Widoczne efekty.</span>
+              <span className="block text-brand-light">Widoczne efekty.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
               Pomagam wrócić do regularności albo zacząć od podstaw. Prosty system treningowy, bez skrajnych diet,
@@ -62,9 +62,9 @@ export default function Home() {
                 <Link
                   key={choice.href}
                   href={choice.href}
-                  className="group flex items-center gap-4 rounded-lg border border-white/15 bg-surface/85 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-red-500 hover:shadow-[0_0_60px_rgba(239,35,42,0.18)] sm:flex-col sm:items-start sm:p-7"
+                  className="group flex items-center gap-4 rounded-lg border border-white/15 bg-surface/85 p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-brand-light hover:shadow-[0_0_60px_rgba(184,34,49,0.18)] sm:flex-col sm:items-start sm:p-7"
                 >
-                  <choice.icon className="h-8 w-8 shrink-0 text-red-500" />
+                  <choice.icon className="h-8 w-8 shrink-0 text-brand-light" />
                   <span className="flex-1">
                     <span className="block text-xl font-black text-white sm:text-2xl">{choice.title}</span>
                     <span className="mt-1 block text-sm text-white/65">{choice.subtitle}</span>

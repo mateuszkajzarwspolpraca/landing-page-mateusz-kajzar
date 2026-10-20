@@ -47,7 +47,7 @@ export function StickyDm({ source }: { source: string }) {
     <div
       aria-hidden={!show}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/85 px-4 py-3 backdrop-blur-xl transition-transform duration-300 sm:hidden",
+        "fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-page/85 px-4 py-3 backdrop-blur-xl transition-transform duration-300 sm:hidden",
         show ? "translate-y-0" : "pointer-events-none translate-y-full" // schowany = wysunięty pod dolną krawędź
       )}
     >
