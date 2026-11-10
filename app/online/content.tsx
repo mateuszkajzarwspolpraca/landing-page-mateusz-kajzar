@@ -3,6 +3,7 @@
  *
  * Tu są wszystkie listy i dłuższe treści: film VSL, historie, etapy, roadmapa, obawy, lista „w cenie”, kroki „co dalej”, „W co wierzę” i FAQ.
  * Same ceny (1200 zł / 450 zł) i krótkie akapity sekcji są w page.tsx, w sekcji „Oferta”.
+ * Cennik jest obecnie ukryty: włącza się go przełącznikiem SHOW_PRICING niżej w tym pliku.
  * Chcesz zmienić tekst na stronie? Najpierw szukaj tutaj. Układ i kolejność sekcji są w page.tsx.
  *
  * Plik ma rozszerzenie .tsx, bo część tekstów zawiera JSX (np. pogrubienia albo link w odpowiedzi FAQ).
@@ -23,11 +24,18 @@ export const VSL = {
   label: "Zobacz, jak pracuję",
 };
 
-/** Linki w górnym menu. `href` wskazuje `id` sekcji na stronie. */
+/**
+ * Czy pokazywać sekcję z cennikiem („Oferta”) i link „Cena” w menu.
+ * false = sekcja jest ukryta, ale cały jej kod i ceny zostają w page.tsx.
+ * Żeby przywrócić cennik, zmień na true.
+ */
+export const SHOW_PRICING = false;
+
+/** Linki w górnym menu. `href` wskazuje `id` sekcji na stronie. Link „Cena” pokazuje się tylko, gdy SHOW_PRICING = true. */
 export const navLinks = [
   { label: "Historie", href: "#historie" },
   { label: "Jak pracuję", href: "#metoda" },
-  { label: "Cena", href: "#oferta" },
+  ...(SHOW_PRICING ? [{ label: "Cena", href: "#oferta" }] : []),
   { label: "Opinie", href: "#opinie" },
   { label: "FAQ", href: "#faq" },
 ];

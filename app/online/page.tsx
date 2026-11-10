@@ -21,6 +21,7 @@ import { REVIEWS } from "@/lib/content";
 import {
   DM_NOTE_HERO,
   DM_NOTE_QUESTIONS,
+  SHOW_PRICING,
   afterMessage,
   beliefs,
   faq,
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: { url: "/online", title: "Regularny trening bez skrajnych diet i bez słuchania, że to Twoja wina." },
 };
 
-/** Opinie w karuzeli, w tej kolejności. */
+/** Opinie w ścianie opinii, w tej kolejności. */
 const reviews = [
   REVIEWS.krzysztof,
   REVIEWS.bartek,
@@ -55,6 +56,15 @@ const reviews = [
   REVIEWS.dorota,
   REVIEWS.eryk,
 ];
+
+/**
+ * Sekcje mają na zmianę dwa tła (jaśniejsze i ciemniejsze). Kiedy cennik jest ukryty, sekcje pod nim
+ * „przesuwają się” o jedną, więc odwracamy ich tło, żeby dwie sekcje z tym samym tłem nie stały obok siebie.
+ */
+function toneAfterPricing(tone: "page" | "dark"): "page" | "dark" {
+  if (SHOW_PRICING) return tone;
+  return tone === "page" ? "dark" : "page";
+}
 
 export default function OnlinePage() {
   return (
@@ -193,56 +203,58 @@ export default function OnlinePage() {
           <Highlight className="mt-8 max-w-2xl">I nie potrzebujesz trenera do każdej podstawowej decyzji.</Highlight>
         </Section>
 
-        {/* 7. Oferta */}
-        <Section id="oferta">
-          <SectionHeading
-            eyebrow="Cena"
-            title="Jedna współpraca, dwa sposoby płatności"
-            intro={<p>Zakres jest identyczny. Różni się tylko to, czy decydujesz raz, czy co miesiąc.</p>}
-          />
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr_1fr]">
-            <PriceCard badge="Polecam" title="Pełny proces: 3 miesiące" price="1200 zł" priceNote="za całość (400 zł miesięcznie)" highlighted>
-              <p>
-                Tyle realnie zajmuje ogarnięcie podstaw. Płacisz raz i przez trzy miesiące nie zastanawiasz się, czy
-                kontynuować. Z mojego doświadczenia ludzie najczęściej odpadają właśnie na starcie albo po pierwszym miesiącu.
-              </p>
-              <p className="text-white/50">150 zł mniej niż 3 × 450 zł.</p>
-            </PriceCard>
-            <PriceCard title="Miesiąc po miesiącu" price="450 zł" priceNote="/ miesiąc, bez zobowiązania">
-              <p>Chcesz najpierw sprawdzić, czy to działa? Zacznij od jednego miesiąca i zdecyduj, co dalej.</p>
-            </PriceCard>
-            <Card>
-              <p className="text-lg font-black text-white">W obu wariantach:</p>
-              <div className="mt-4">
-                <CheckList items={included} />
-              </div>
-            </Card>
-          </div>
-          <div className="mt-10">
-            <DmBlock source="online-oferta" note={DM_NOTE_QUESTIONS} />
-          </div>
-        </Section>
+        {/* 7. Oferta (cennik). Ukryta, dopóki SHOW_PRICING w content.tsx = false. */}
+        {SHOW_PRICING && (
+          <Section id="oferta">
+            <SectionHeading
+              eyebrow="Cena"
+              title="Jedna współpraca, dwa sposoby płatności"
+              intro={<p>Zakres jest identyczny. Różni się tylko to, czy decydujesz raz, czy co miesiąc.</p>}
+            />
+            <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr_1fr]">
+              <PriceCard badge="Polecam" title="Pełny proces: 3 miesiące" price="1200 zł" priceNote="za całość (400 zł miesięcznie)" highlighted>
+                <p>
+                  Tyle realnie zajmuje ogarnięcie podstaw. Płacisz raz i przez trzy miesiące nie zastanawiasz się, czy
+                  kontynuować. Z mojego doświadczenia ludzie najczęściej odpadają właśnie na starcie albo po pierwszym miesiącu.
+                </p>
+                <p className="text-white/50">150 zł mniej niż 3 × 450 zł.</p>
+              </PriceCard>
+              <PriceCard title="Miesiąc po miesiącu" price="450 zł" priceNote="/ miesiąc, bez zobowiązania">
+                <p>Chcesz najpierw sprawdzić, czy to działa? Zacznij od jednego miesiąca i zdecyduj, co dalej.</p>
+              </PriceCard>
+              <Card>
+                <p className="text-lg font-black text-white">W obu wariantach:</p>
+                <div className="mt-4">
+                  <CheckList items={included} />
+                </div>
+              </Card>
+            </div>
+            <div className="mt-10">
+              <DmBlock source="online-oferta" note={DM_NOTE_QUESTIONS} />
+            </div>
+          </Section>
+        )}
 
         {/* 8. Co się dzieje, gdy napiszesz */}
-        <Section tone="dark">
+        <Section tone={toneAfterPricing("dark")}>
           <SectionHeading title="Co się dzieje, gdy napiszesz" />
           <Steps steps={afterMessage} />
         </Section>
 
         {/* 9. Opinie */}
-        <Section id="opinie">
+        <Section id="opinie" tone={toneAfterPricing("page")}>
           <SectionHeading
             eyebrow="Opinie"
             title="Co mówią podopieczni"
             intro={<GoogleRatingBadge />}
           />
           <div className="mt-8">
-            <ReviewWall reviews={reviews} />
+            <ReviewWall reviews={reviews} tone={toneAfterPricing("page")} />
           </div>
         </Section>
 
         {/* 10. Dla kogo to nie jest */}
-        <Section tone="dark">
+        <Section tone={toneAfterPricing("dark")}>
           <SectionHeading title="Dla kogo to nie jest" />
           <div className="mt-8 grid gap-4 lg:grid-cols-3">
             {notFor.map((item) => (
@@ -255,7 +267,7 @@ export default function OnlinePage() {
         </Section>
 
         {/* 11. Kto po drugiej stronie */}
-        <Section>
+        <Section tone={toneAfterPricing("page")}>
           <div className="grid items-center gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
             <Image
               src="/images/omnie/omnie.jpeg"
@@ -291,13 +303,13 @@ export default function OnlinePage() {
         </Section>
 
         {/* 12. FAQ */}
-        <Section id="faq" tone="dark">
+        <Section id="faq" tone={toneAfterPricing("dark")}>
           <SectionHeading eyebrow="FAQ" title="Masz pytania?" />
           <Faq items={faq} />
         </Section>
 
         {/* 13. Ostatnie wezwanie */}
-        <Section>
+        <Section tone={toneAfterPricing("page")}>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-black leading-[1.1] sm:text-4xl">Obserwujesz od dawna i dalej się wahasz?</h2>
             <Prose className="mx-auto mt-6">

@@ -84,6 +84,7 @@ public/images/                Zdjęcia i logo (adres w kodzie zaczyna się od /i
 | Tekst na stronie /online albo /jaworzno | `app/online/content.tsx`, `app/jaworzno/content.tsx`; nagłówki i krótkie akapity sekcji są w `page.tsx` obok |
 | Kolejność sekcji | `page.tsx` danej strony (sekcje są ponumerowane w komentarzach) |
 | Ceny | sekcja „Oferta” w `page.tsx` danej strony |
+| Pokazać / ukryć cennik na /online | `SHOW_PRICING` w `app/online/content.tsx` (`true` = widoczny, `false` = ukryty; kod cennika zostaje) |
 | Opinie z Google | `lib/content.ts` (`REVIEWS`), wybór i kolejność w `page.tsx` danej strony |
 | Pytania FAQ | wspólne w `lib/content.ts` (`FAQ_BASE`), lista dla strony w jej `content.tsx` |
 | Instagram, e-mail, ocena Google, adres siłowni | `lib/site.ts` |

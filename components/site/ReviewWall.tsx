@@ -8,8 +8,8 @@
  * „Zobacz więcej opinii”, który rozwija całość. Jeśli opinii jest mało i mieszczą się w całości,
  * gradient i przycisk się nie pokazują.
  *
- * Gradient ma kolor tła strony (bg-page). Jeśli wstawisz ścianę na sekcję z innym tłem,
- * zmień klasę `from-page` w gradiencie.
+ * Gradient musi mieć ten sam kolor co tło sekcji, w której stoi ściana.
+ * Dlatego podaje się `tone` – taki sam jak w <Section tone=…>.
  */
 
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -17,7 +17,13 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ReviewCard, type Review } from "./Cards";
 
-export function ReviewWall({ reviews }: { reviews: Review[] }) {
+type ReviewWallProps = {
+  reviews: Review[];
+  /** Tło sekcji, w której stoi ściana: "page" albo "dark" (jak w <Section>). Od tego zależy kolor przyciemnienia. */
+  tone?: "page" | "dark";
+};
+
+export function ReviewWall({ reviews, tone = "page" }: ReviewWallProps) {
   // Czy ściana jest rozwinięta.
   const [expanded, setExpanded] = useState(false);
   // Czy opinie są wyższe niż zwinięta ściana (czyli czy jest co rozwijać).
@@ -61,7 +67,12 @@ export function ReviewWall({ reviews }: { reviews: Review[] }) {
 
       {/* Przyciemnienie dołu, gdy ściana jest zwinięta */}
       {collapsed && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t sm:h-56 from-page via-page/85 to-transparent" />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t to-transparent sm:h-56",
+            tone === "page" ? "from-page via-page/85" : "from-surface-dark via-surface-dark/85"
+          )}
+        />
       )}
 
       {overflowing && (
